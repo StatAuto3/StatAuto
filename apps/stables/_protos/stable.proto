@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package stables;
+
+service StablesService {
+  rpc GetStables (GetStablesRequest) returns (GetStablesResponse);
+}
+
+message GetStablesRequest {
+  string query = 1;
+}
+
+message GetStablesResponse {
+  repeated Stable stables = 1;
+}
+
+message Stable {
+  string id = 1;
+  string name = 2;
+  string location = 3;
+}
