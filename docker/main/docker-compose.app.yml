@@ -1,0 +1,13 @@
+name: statauto-app
+services:
+  app:
+    image: "rg.fr-par.scw.cloud/statauto/app:latest"
+    container_name: statauto-app
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    network_mode: "host"
+    environment:
+      PORT: 10105
