@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { firstValueFrom } from 'rxjs';
 
@@ -9,5 +9,10 @@ export class AppController {
   @Get('stables')
   async getStables(@Query('query') query: string) {
     return firstValueFrom(this.appService.getStables(query));
+  }
+
+  @Get('stable/:id')
+  async getStableById(@Param('id') id: string) {
+    return firstValueFrom(this.appService.getStableById(id));
   }
 }

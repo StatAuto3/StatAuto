@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package gateway;
+
+import "../../stables/proto/stable.proto";
+
+service GatewayService {
+  rpc GetStables (stables.GetStablesRequest) returns (stables.GetStablesResponse);
+  rpc GetStableById (stables.GetStableByIdRequest) returns (stables.GetStableByIdResponse);
+} 
