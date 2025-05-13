@@ -11,7 +11,7 @@ import { AppService } from './app.service';
         name: 'STABLES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: '0.0.0.0:5003',
+          url: 'localhost:5003',
           package: 'stables',
           protoPath: join(__dirname, '../../stables/proto/stable.proto'),
         },
