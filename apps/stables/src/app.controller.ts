@@ -55,4 +55,24 @@ export class AppController {
       },
     };
   }
+
+  @GrpcMethod('StablesService', 'CreateStable')
+  async createStable(data: {
+    name: string;
+    location: string;
+    image?: string;
+    image_cover?: string;
+  }) {
+    const stable = await this.appService.createStable(data);
+
+    return {
+      stable: {
+        ...stable,
+        pilote: stable.pilote || [],
+        total_points: 0,
+        created_at: stable.createdAt?.toISOString() || new Date().toISOString(),
+        updated_at: stable.updatedAt?.toISOString() || new Date().toISOString(),
+      },
+    };
+  }
 }

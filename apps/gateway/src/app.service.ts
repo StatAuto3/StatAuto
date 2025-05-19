@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { LoginRequest, RegisterRequest } from './types/auth.types';
 
 export interface Stable {
   id: string;
@@ -9,6 +10,8 @@ export interface Stable {
   location: string;
   image: string;
   image_cover: string;
+  email: string;
+  password: string;
   pilotes: number;
   pilote: Pilote[];
   how_many_tournaments: number;
@@ -33,20 +36,41 @@ export interface GetStableByIdResponse {
   stable: Stable;
 }
 
+export interface RegisterResponse {
+  token: string;
+}
+
+export interface LoginResponse {
+  token: string;
+}
+
 interface StablesService {
   GetStables(data: { query: string }): Observable<GetStablesResponse>;
   GetStableById(data: { id: string }): Observable<GetStableByIdResponse>;
 }
 
+interface AuthenticationService {
+  Register(request: RegisterRequest): Observable<RegisterResponse>;
+  Login(request: LoginRequest): Observable<LoginResponse>;
+}
+
 @Injectable()
 export class AppService {
   private stablesService: StablesService;
+  private authenticationService: AuthenticationService;
 
-  constructor(@Inject('STABLES_PACKAGE') private client: ClientGrpc) {}
+  constructor(
+    @Inject('STABLES_PACKAGE') private stablesClient: ClientGrpc,
+    @Inject('AUTHENTICATION_PACKAGE') private authClient: ClientGrpc,
+  ) {}
 
   onModuleInit() {
     this.stablesService =
-      this.client.getService<StablesService>('StablesService');
+      this.stablesClient.getService<StablesService>('StablesService');
+    this.authenticationService =
+      this.authClient.getService<AuthenticationService>(
+        'AuthenticationService',
+      );
   }
 
   getStables(query: string): Observable<GetStablesResponse> {
@@ -55,5 +79,13 @@ export class AppService {
 
   getStableById(id: string): Observable<GetStableByIdResponse> {
     return this.stablesService.GetStableById({ id });
+  }
+
+  register(body: any): Observable<RegisterResponse> {
+    return this.authenticationService.Register(body);
+  }
+
+  login(body: any): Observable<LoginResponse> {
+    return this.authenticationService.Login(body);
   }
 }

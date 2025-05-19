@@ -5,6 +5,7 @@ package stables;
 service StablesService {
   rpc GetStables (GetStablesRequest) returns (GetStablesResponse);
   rpc GetStableById (GetStableByIdRequest) returns (GetStableByIdResponse);
+  rpc CreateStable (CreateStableRequest) returns (CreateStableResponse);
 }
 
 message GetStablesRequest {
@@ -20,6 +21,17 @@ message GetStablesResponse {
 }
 
 message GetStableByIdResponse {
+  Stable stable = 1;
+}
+
+message CreateStableRequest {
+  string name = 1;
+  string location = 2;
+  optional string image = 3;
+  optional string image_cover = 4;
+}
+
+message CreateStableResponse {
   Stable stable = 1;
 }
 

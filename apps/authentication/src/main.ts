@@ -10,7 +10,15 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: 'authentication',
-        protoPath: join(__dirname, './proto/authentication.proto'),
+        protoPath: join(__dirname, '../proto/authentication.proto'),
+        url: 'localhost:5004',
+        loader: {
+          keepCase: true,
+          longs: String,
+          enums: String,
+          defaults: true,
+          oneofs: true,
+        },
       },
     },
   );

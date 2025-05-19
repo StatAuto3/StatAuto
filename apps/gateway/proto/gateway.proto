@@ -3,8 +3,11 @@ syntax = "proto3";
 package gateway;
 
 import "../../stables/proto/stable.proto";
+import "../../authentication/proto/authentication.proto";
 
 service GatewayService {
   rpc GetStables (stables.GetStablesRequest) returns (stables.GetStablesResponse);
   rpc GetStableById (stables.GetStableByIdRequest) returns (stables.GetStableByIdResponse);
+  rpc Register (authentication.RegisterRequest) returns (authentication.RegisterResponse);
+  rpc Login (authentication.LoginRequest) returns (authentication.LoginResponse);
 } 
