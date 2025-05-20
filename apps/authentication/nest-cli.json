@@ -5,12 +5,7 @@
   "compilerOptions": {
     "webpack": true,
     "deleteOutDir": true,
-    "assets": [
-      {
-        "include": "../proto/**/*.proto",
-        "outDir": "dist/proto",
-        "watchAssets": true
-      }
-    ]
+    "assets": ["**/*.proto"],
+    "watchAssets": true
   }
 }

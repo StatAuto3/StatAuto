@@ -9,10 +9,7 @@ import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AppService {
-  constructor(
-    private jwtService: JwtService,
-    private prisma: PrismaService,
-  ) {}
+  constructor(private jwtService: JwtService, private prisma: PrismaService) {}
 
   async register(registerDto: RegisterDto) {
     const existingUser = await this.prisma.stable.findFirst({
@@ -36,11 +33,17 @@ export class AppService {
         password: hashedPassword,
       },
     });
-
     const payload = { email: user.email, sub: user.id };
-    const token = this.jwtService.sign(payload);
-
-    return { token };
+    console.log('payload', payload);
+    try {
+      const token = this.jwtService.sign(payload); // ça 🌵 ici
+      return { token };
+    } catch (error) {
+      console.log('error', error);
+      throw new RpcException({
+        message: error.message,
+      });
+    }
   }
 
   async login(loginDto: LoginDto) {
@@ -54,7 +57,7 @@ export class AppService {
     }
 
     const payload = { email: user.email, sub: user.id };
-    const token = this.jwtService.sign(payload);
+    const token = this.jwtService.sign(payload); // ça 🌵 ici
 
     return { token };
   }

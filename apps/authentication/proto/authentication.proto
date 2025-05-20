@@ -3,8 +3,8 @@ syntax = "proto3";
 package authentication;
 
 service AuthenticationService {
-  rpc Register (RegisterRequest) returns (RegisterResponse);
-  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Register (RegisterRequest) returns (RegisterResponse) {}
+  rpc Login (LoginRequest) returns (LoginResponse) {}
 }
 
 message RegisterRequest {

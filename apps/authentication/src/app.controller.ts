@@ -1,20 +1,19 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @GrpcMethod('AuthenticationService', 'Register')
-  async register(request: RegisterDto) {
-    return this.appService.register(request);
+  async register(data: RegisterDto): Promise<{ token: string }> {
+    return this.appService.register(data);
   }
 
   @GrpcMethod('AuthenticationService', 'Login')
-  async login(request: LoginDto) {
-    return this.appService.login(request);
+  async login(data: LoginDto): Promise<{ token: string }> {
+    return this.appService.login(data);
   }
 }
