@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package stables;
+
+service StablesService {
+  rpc GetStables (GetStablesRequest) returns (GetStablesResponse);
+  rpc GetStableById (GetStableByIdRequest) returns (GetStableByIdResponse);
+}
+
+message GetStablesRequest {
+  string query = 1;
+}
+
+message GetStableByIdRequest {
+  string id = 1;
+}
+
+message GetStablesResponse {
+  repeated Stable stables = 1;
+}
+
+message GetStableByIdResponse {
+  Stable stable = 1;
+}
+
+message Pilote {
+  string id = 1;
+  string name = 2;
+  string stable_id = 3;
+  int32 age = 4;
+  string gender = 5;
+  int32 best_chrono_time = 6;
+  int32 pilote_number = 7;
+  int32 points = 8;
+}
+
+message Stable {
+  string id = 1;
+  string name = 2;
+  string location = 3;
+  string image = 4;
+  string image_cover = 5;
+  int32 pilotes = 6;
+  repeated Pilote pilote = 7;
+  int32 how_many_tournaments = 8;
+  int32 how_many_wins = 9;
+  int32 how_many_losses = 10;
+  int32 total_points = 11;
+  string created_at = 12;
+  string updated_at = 13;
+} 
