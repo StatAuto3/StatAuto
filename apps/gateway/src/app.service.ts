@@ -62,6 +62,9 @@ export class AppService {
   constructor(
     @Inject('STABLES_PACKAGE') private stablesClient: ClientGrpc,
     @Inject('AUTHENTICATION_PACKAGE') private authClient: ClientGrpc,
+    @Inject('COURSES_PACKAGE') private coursesClient: ClientGrpc,
+    @Inject('PILOTES_PACKAGE') private pilotesClient: ClientGrpc,
+    @Inject('TOURNAMENTS_PACKAGE') private tournamentsClient: ClientGrpc,
   ) {}
 
   onModuleInit() {
@@ -87,5 +90,13 @@ export class AppService {
 
   login(body: any): Observable<LoginResponse> {
     return this.authenticationService.Login(body);
+  }
+
+  getCourses(): Observable<GetCoursesResponse> {
+    return this.coursesClient.GetCourses();
+  }
+
+  getCourseById(id: string): Observable<GetCourseByIdResponse> {
+    return this.coursesClient.GetCourseById({ id });
   }
 }
