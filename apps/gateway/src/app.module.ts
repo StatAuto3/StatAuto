@@ -16,6 +16,18 @@ import { AppService } from './app.service';
           protoPath: join(__dirname, '../../stables/proto/stable.proto'),
         },
       },
+      {
+        name: 'AUTHENTICATION_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          url: 'localhost:5004',
+          package: 'authentication',
+          protoPath: join(
+            __dirname,
+            '../../authentication/proto/authentication.proto',
+          ),
+        },
+      },
     ]),
   ],
   controllers: [AppController],

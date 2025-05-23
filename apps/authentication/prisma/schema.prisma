@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Stable {
+  id                   String   @id @default(uuid())
+  image                String?
+  image_cover          String?
+  name                 String
+  location             String
+  pilotes              Int      @default(0)
+  how_many_tournaments Int      @default(0)
+  how_many_wins        Int      @default(0)
+  how_many_losses      Int      @default(0)
+  total_points         Int?     @default(0) @ignore
+  email                String
+  password             String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  pilote               Pilote[]
+}
+
+model Pilote {
+  id               String          @id @default(uuid())
+  name             String
+  stableId         String
+  age              Int
+  gender           String
+  best_chrono_time Int
+  pilote_number    Int
+  points           Int             @default(0)
+  courses          Participation[]
+  Stable           Stable          @relation(fields: [stableId], references: [id])
+}
+
+model Course {
+  id           String          @id @default(uuid())
+  name         String
+  image        String?
+  date         DateTime
+  nb_tours     Int
+  participants Participation[]
+}
+
+model Participation {
+  id        String   @id @default(uuid())
+  piloteId  String
+  courseId  String
+  chrono    Int?
+  position  Int?
+  points    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  course    Course   @relation(fields: [courseId], references: [id])
+  pilote    Pilote   @relation(fields: [piloteId], references: [id])
+
+  @@unique([piloteId, courseId])
+}
