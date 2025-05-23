@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package pilote;
+
+service PiloteService {
+  rpc GetPilotes (Empty) returns (PilotesResponse) {}
+  rpc GetPiloteById (PiloteById) returns (Pilote) {}
+}
+
+message Empty {}
+
+message PiloteById {
+  string id = 1;
+}
+
+message Pilote {
+  string id = 1;
+  string name = 2;
+  string stableId = 3;
+  int32 age = 4;
+  string gender = 5;
+  int32 best_chrono_time = 6;
+  int32 pilote_number = 7;
+  int32 points = 8;
+}
+
+message PilotesResponse {
+  repeated Pilote pilotes = 1;
+}
