@@ -5,8 +5,10 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @GrpcMethod('CoursesService', 'GetCourses')
+  async getCourses(data: { query: string }) {
+    const courses = await this.appService.getCourses();
+
+    return { courses };
   }
 }
