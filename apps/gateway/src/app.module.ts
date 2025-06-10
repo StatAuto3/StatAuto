@@ -12,7 +12,7 @@ import { AppService } from './app.service';
         transport: Transport.GRPC,
         options: {
           url: 'localhost:5003',
-          package: 'stables',
+          package: 'stable',
           protoPath: join(__dirname, '../../stables/proto/stable.proto'),
         },
       },
@@ -28,6 +28,16 @@ import { AppService } from './app.service';
           ),
         },
       },
+      {
+        name: 'PILOTE_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          url: 'localhost:5001',
+          package: 'pilote',
+          protoPath: join(__dirname, '../../pilotes/proto/pilote.proto'),
+        },
+      },
+
     ]),
   ],
   controllers: [AppController],

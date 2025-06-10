@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { LoginRequest, RegisterRequest } from './types/auth.types';
 
 export interface Stable {
   id: string;
@@ -44,6 +43,27 @@ export interface LoginResponse {
   token: string;
 }
 
+export interface GetPilotesResponse {
+  pilotes: Pilote[];
+}
+
+export interface GetPiloteIdResponse {
+  pilote: Pilote;
+}
+
+export interface  RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+  location: string;
+  image?: string;
+  image_cover?: string;
+}
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 interface StablesService {
   GetStables(data: { query: string }): Observable<GetStablesResponse>;
   GetStableById(data: { id: string }): Observable<GetStableByIdResponse>;
@@ -54,17 +74,21 @@ interface AuthenticationService {
   Login(request: LoginRequest): Observable<LoginResponse>;
 }
 
+interface PiloteService {
+  GetPilotes(data: { query: string }): Observable<GetPilotesResponse>;
+  GetPiloteById(data: { id: string }): Observable<GetPiloteIdResponse>;
+}
+
 @Injectable()
 export class AppService {
   private stablesService: StablesService;
   private authenticationService: AuthenticationService;
+  private pilotesService: PiloteService;
 
   constructor(
     @Inject('STABLES_PACKAGE') private stablesClient: ClientGrpc,
     @Inject('AUTHENTICATION_PACKAGE') private authClient: ClientGrpc,
-    @Inject('COURSES_PACKAGE') private coursesClient: ClientGrpc,
     @Inject('PILOTES_PACKAGE') private pilotesClient: ClientGrpc,
-    @Inject('TOURNAMENTS_PACKAGE') private tournamentsClient: ClientGrpc,
   ) {}
 
   onModuleInit() {
@@ -74,6 +98,10 @@ export class AppService {
       this.authClient.getService<AuthenticationService>(
         'AuthenticationService',
       );
+    this.pilotesService =
+      this.pilotesClient.getService<PiloteService>('PilotesService');
+    this.pilotesService =
+      this.pilotesClient.getService<PiloteService>('PilotesService');
   }
 
   getStables(query: string): Observable<GetStablesResponse> {
@@ -92,11 +120,11 @@ export class AppService {
     return this.authenticationService.Login(body);
   }
 
-  getCourses(): Observable<GetCoursesResponse> {
-    return this.coursesClient.GetCourses();
+  getPilotes(body: any): Observable<GetPilotesResponse> {
+    return this.pilotesService.GetPilotes(body);
   }
 
-  getCourseById(id: string): Observable<GetCourseByIdResponse> {
-    return this.coursesClient.GetCourseById({ id });
+  getPiloteById(id: string): Observable<GetPiloteIdResponse> {
+    return this.pilotesService.GetPiloteById({ id });
   }
 }

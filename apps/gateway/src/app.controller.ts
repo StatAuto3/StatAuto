@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService, LoginRequest, RegisterRequest } from './app.service';
 import { firstValueFrom } from 'rxjs';
-import { LoginRequest, RegisterRequest } from './types/auth.types';
 
 @Controller()
 export class AppController {
@@ -25,5 +24,15 @@ export class AppController {
   @Get('stable/:id')
   async getStableById(@Param('id') id: string) {
     return firstValueFrom(this.appService.getStableById(id));
+  }
+
+  @Get('pilotes')
+  async getAllPilote(@Query('query') query: string) {
+    return firstValueFrom(this.appService.getPilotes(query));
+  }
+
+  @Get('pilote/:id')
+  async getPiloteById(@Param('id') id: string) {
+    return firstValueFrom(this.appService.getPiloteById(id))
   }
 }

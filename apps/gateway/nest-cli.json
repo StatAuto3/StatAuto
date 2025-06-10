@@ -3,11 +3,11 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true,
+    "webpack": true,
     "assets": [
       {
-        "include": "stables/proto/*.proto",
-        "outDir": "dist"
+        "include": "proto/*.proto",
+        "outDir": "dist/proto"
       }
     ],
     "watchAssets": true
