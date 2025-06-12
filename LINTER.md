@@ -8,8 +8,6 @@ cohérence du code.
 - **ESLint** : Analyse statique du code pour détecter les erreurs et problèmes
   de style
 - **Prettier** : Formatage automatique du code
-- **Husky** : Hooks Git pour automatiser les vérifications
-- **lint-staged** : Lint seulement les fichiers modifiés
 
 ## 🚀 Commandes disponibles
 
@@ -84,13 +82,13 @@ Configuration dans `prettier.config.mjs` :
 - Point-virgules obligatoires
 - Largeur de ligne : 80 caractères
 
-## 🎯 Pre-commit Hooks
+## 🎯 Utilisation manuelle recommandée
 
-Les hooks automatiques vérifient :
+Pour maintenir la qualité du code :
 
-- Linting ESLint avec correction automatique
-- Formatage Prettier
-- Seulement sur les fichiers modifiés (staged)
+- Lancez `pnpm run format:fix` avant chaque commit
+- Utilisez `pnpm run quality:check` pour vérifier la qualité
+- Intégrez les vérifications dans votre workflow de développement
 
 ## 📁 Fichiers ignorés
 
@@ -127,7 +125,7 @@ export default [
 
 1. **Avant de committer** : Lancez `pnpm run format:fix`
 2. **En CI/CD** : Utilisez `pnpm run quality:check`
-3. **Développement** : Les hooks pre-commit s'occupent du reste
+3. **Développement** : Intégrez le linting dans votre workflow
 4. **IDE** : Configurez votre éditeur pour utiliser les configs ESLint et
    Prettier
 
