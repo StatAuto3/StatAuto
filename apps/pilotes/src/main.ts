@@ -9,8 +9,8 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        package: 'pilotes',
-        protoPath: join(__dirname, './proto/pilote.proto'),
+        package: 'statauto',
+        protoPath: join(__dirname, './proto/stat-auto-complete.proto'),
       },
     },
   );
