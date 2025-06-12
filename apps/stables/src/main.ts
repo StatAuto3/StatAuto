@@ -10,8 +10,15 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         url: '0.0.0.0:5003',
-        package: 'stables',
-        protoPath: join(__dirname, '../proto/stable.proto'),
+        package: 'statauto',
+        protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+        loader: {
+          keepCase: true,
+          longs: String,
+          enums: String,
+          defaults: true,
+          oneofs: true,
+        },
       },
     },
   );

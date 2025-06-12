@@ -1,0 +1,636 @@
+syntax = "proto3";
+
+package statauto;
+
+import "google/protobuf/timestamp.proto";
+
+// ===========================
+// Services Principaux
+// ===========================
+
+// Service d'authentification
+service AuthenticationService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+// Service de gestion des écuries
+service StablesService {
+  rpc GetStables(GetStablesRequest) returns (GetStablesResponse);
+  rpc GetStableById(GetStableByIdRequest) returns (GetStableByIdResponse);
+  rpc CreateStable(CreateStableRequest) returns (CreateStableResponse);
+  rpc UpdateStable(UpdateStableRequest) returns (UpdateStableResponse);
+  rpc DeleteStable(DeleteStableRequest) returns (DeleteStableResponse);
+  rpc GetStableStats(GetStableStatsRequest) returns (GetStableStatsResponse);
+}
+
+// Service de gestion des pilotes
+service PilotesService {
+  rpc GetPilotes(GetPilotesRequest) returns (GetPilotesResponse);
+  rpc GetPiloteById(GetPiloteByIdRequest) returns (GetPiloteByIdResponse);
+  rpc CreatePilote(CreatePiloteRequest) returns (CreatePiloteResponse);
+  rpc UpdatePilote(UpdatePiloteRequest) returns (UpdatePiloteResponse);
+  rpc DeletePilote(DeletePiloteRequest) returns (DeletePiloteResponse);
+  rpc GetPilotesByStable(GetPilotesByStableRequest) returns (GetPilotesByStableResponse);
+  rpc GetPiloteStats(GetPiloteStatsRequest) returns (GetPiloteStatsResponse);
+}
+
+// Service de gestion des courses
+service CoursesService {
+  rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
+  rpc GetCourseById(GetCourseByIdRequest) returns (GetCourseByIdResponse);
+  rpc CreateCourse(CreateCourseRequest) returns (CreateCourseResponse);
+  rpc UpdateCourse(UpdateCourseRequest) returns (UpdateCourseResponse);
+  rpc DeleteCourse(DeleteCourseRequest) returns (DeleteCourseResponse);
+  rpc GetCourseResults(GetCourseResultsRequest) returns (GetCourseResultsResponse);
+}
+
+// Service de gestion des participations
+service ParticipationsService {
+  rpc GetParticipations(GetParticipationsRequest) returns (GetParticipationsResponse);
+  rpc GetParticipationById(GetParticipationByIdRequest) returns (GetParticipationByIdResponse);
+  rpc CreateParticipation(CreateParticipationRequest) returns (CreateParticipationResponse);
+  rpc UpdateParticipation(UpdateParticipationRequest) returns (UpdateParticipationResponse);
+  rpc DeleteParticipation(DeleteParticipationRequest) returns (DeleteParticipationResponse);
+  rpc GetParticipationsByPilote(GetParticipationsByPiloteRequest) returns (GetParticipationsByPiloteResponse);
+  rpc GetParticipationsByCourse(GetParticipationsByCourseRequest) returns (GetParticipationsByCourseResponse);
+}
+
+// Service de statistiques et rapports
+service StatsService {
+  rpc GetOverallStats(GetOverallStatsRequest) returns (GetOverallStatsResponse);
+  rpc GetLeaderboard(GetLeaderboardRequest) returns (GetLeaderboardResponse);
+  rpc GetTournamentStats(GetTournamentStatsRequest) returns (GetTournamentStatsResponse);
+}
+
+// ===========================
+// Messages - Entités de Base
+// ===========================
+
+message Stable {
+  string id = 1;
+  optional string image = 2;
+  optional string image_cover = 3;
+  string name = 4;
+  string location = 5;
+  int32 pilotes = 6;
+  repeated Pilote pilote = 7;
+  int32 how_many_tournaments = 8;
+  int32 how_many_wins = 9;
+  int32 how_many_losses = 10;
+  int32 total_points = 11;
+  string email = 12;
+  string password = 13;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+}
+
+message Pilote {
+  string id = 1;
+  string name = 2;
+  string stable_id = 3;
+  int32 age = 4;
+  string gender = 5;
+  int32 best_chrono_time = 6;
+  int32 pilote_number = 7;
+  int32 points = 8;
+  repeated Participation courses = 9;
+  Stable stable = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+}
+
+message Course {
+  string id = 1;
+  string name = 2;
+  optional string image = 3;
+  google.protobuf.Timestamp date = 4;
+  int32 nb_tours = 5;
+  repeated Participation participants = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message Participation {
+  string id = 1;
+  string pilote_id = 2;
+  string course_id = 3;
+  optional int32 chrono = 4;
+  optional int32 position = 5;
+  int32 points = 6;
+  Pilote pilote = 7;
+  Course course = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+}
+
+// ===========================
+// Messages - Authentification
+// ===========================
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  string location = 4;
+  optional string image = 5;
+  optional string image_cover = 6;
+}
+
+message RegisterResponse {
+  string token = 1;
+  Stable stable = 2;
+  string message = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  Stable stable = 2;
+  string message = 3;
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  string stable_id = 2;
+  string message = 3;
+}
+
+// ===========================
+// Messages - Écuries
+// ===========================
+
+message GetStablesRequest {
+  optional string query = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+  optional string sort_by = 4;
+  optional string sort_order = 5;
+}
+
+message GetStablesResponse {
+  repeated Stable stables = 1;
+  int32 total = 2;
+}
+
+message GetStableByIdRequest {
+  string id = 1;
+}
+
+message GetStableByIdResponse {
+  Stable stable = 1;
+}
+
+message CreateStableRequest {
+  string name = 1;
+  string location = 2;
+  string email = 3;
+  string password = 4;
+  optional string image = 5;
+  optional string image_cover = 6;
+}
+
+message CreateStableResponse {
+  Stable stable = 1;
+  string message = 2;
+}
+
+message UpdateStableRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string location = 3;
+  optional string email = 4;
+  optional string password = 5;
+  optional string image = 6;
+  optional string image_cover = 7;
+}
+
+message UpdateStableResponse {
+  Stable stable = 1;
+  string message = 2;
+}
+
+message DeleteStableRequest {
+  string id = 1;
+}
+
+message DeleteStableResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetStableStatsRequest {
+  string stable_id = 1;
+}
+
+message GetStableStatsResponse {
+  int32 total_pilotes = 1;
+  int32 total_tournaments = 2;
+  int32 total_wins = 3;
+  int32 total_losses = 4;
+  int32 total_points = 5;
+  double win_rate = 6;
+  Pilote best_pilote = 7;
+}
+
+// ===========================
+// Messages - Pilotes
+// ===========================
+
+message GetPilotesRequest {
+  optional string query = 1;
+  optional string stable_id = 2;
+  optional int32 limit = 3;
+  optional int32 offset = 4;
+  optional string sort_by = 5;
+  optional string sort_order = 6;
+}
+
+message GetPilotesResponse {
+  repeated Pilote pilotes = 1;
+  int32 total = 2;
+}
+
+message GetPiloteByIdRequest {
+  string id = 1;
+}
+
+message GetPiloteByIdResponse {
+  Pilote pilote = 1;
+}
+
+message CreatePiloteRequest {
+  string name = 1;
+  string stable_id = 2;
+  int32 age = 3;
+  string gender = 4;
+  int32 best_chrono_time = 5;
+  int32 pilote_number = 6;
+}
+
+message CreatePiloteResponse {
+  Pilote pilote = 1;
+  string message = 2;
+}
+
+message UpdatePiloteRequest {
+  string id = 1;
+  optional string name = 2;
+  optional int32 age = 3;
+  optional string gender = 4;
+  optional int32 best_chrono_time = 5;
+  optional int32 pilote_number = 6;
+  optional int32 points = 7;
+}
+
+message UpdatePiloteResponse {
+  Pilote pilote = 1;
+  string message = 2;
+}
+
+message DeletePiloteRequest {
+  string id = 1;
+}
+
+message DeletePiloteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetPilotesByStableRequest {
+  string stable_id = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+}
+
+message GetPilotesByStableResponse {
+  repeated Pilote pilotes = 1;
+  int32 total = 2;
+}
+
+message GetPiloteStatsRequest {
+  string pilote_id = 1;
+}
+
+message GetPiloteStatsResponse {
+  int32 total_courses = 1;
+  int32 total_wins = 2;
+  int32 total_podiums = 3;
+  int32 total_points = 4;
+  int32 best_position = 5;
+  int32 best_chrono = 6;
+  double average_position = 7;
+  double win_rate = 8;
+}
+
+// ===========================
+// Messages - Courses
+// ===========================
+
+message GetCoursesRequest {
+  optional string query = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+  optional string sort_by = 4;
+  optional string sort_order = 5;
+  optional google.protobuf.Timestamp date_from = 6;
+  optional google.protobuf.Timestamp date_to = 7;
+}
+
+message GetCoursesResponse {
+  repeated Course courses = 1;
+  int32 total = 2;
+}
+
+message GetCourseByIdRequest {
+  string id = 1;
+}
+
+message GetCourseByIdResponse {
+  Course course = 1;
+}
+
+message CreateCourseRequest {
+  string name = 1;
+  optional string image = 2;
+  google.protobuf.Timestamp date = 3;
+  int32 nb_tours = 4;
+}
+
+message CreateCourseResponse {
+  Course course = 1;
+  string message = 2;
+}
+
+message UpdateCourseRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string image = 3;
+  optional google.protobuf.Timestamp date = 4;
+  optional int32 nb_tours = 5;
+}
+
+message UpdateCourseResponse {
+  Course course = 1;
+  string message = 2;
+}
+
+message DeleteCourseRequest {
+  string id = 1;
+}
+
+message DeleteCourseResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetCourseResultsRequest {
+  string course_id = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+}
+
+message GetCourseResultsResponse {
+  repeated Participation results = 1;
+  int32 total_participants = 2;
+}
+
+// ===========================
+// Messages - Participations
+// ===========================
+
+message GetParticipationsRequest {
+  optional string pilote_id = 1;
+  optional string course_id = 2;
+  optional int32 limit = 3;
+  optional int32 offset = 4;
+  optional string sort_by = 5;
+  optional string sort_order = 6;
+}
+
+message GetParticipationsResponse {
+  repeated Participation participations = 1;
+  int32 total = 2;
+}
+
+message GetParticipationByIdRequest {
+  string id = 1;
+}
+
+message GetParticipationByIdResponse {
+  Participation participation = 1;
+}
+
+message CreateParticipationRequest {
+  string pilote_id = 1;
+  string course_id = 2;
+  optional int32 chrono = 3;
+  optional int32 position = 4;
+  optional int32 points = 5;
+}
+
+message CreateParticipationResponse {
+  Participation participation = 1;
+  string message = 2;
+}
+
+message UpdateParticipationRequest {
+  string id = 1;
+  optional int32 chrono = 2;
+  optional int32 position = 3;
+  optional int32 points = 4;
+}
+
+message UpdateParticipationResponse {
+  Participation participation = 1;
+  string message = 2;
+}
+
+message DeleteParticipationRequest {
+  string id = 1;
+}
+
+message DeleteParticipationResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetParticipationsByPiloteRequest {
+  string pilote_id = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+}
+
+message GetParticipationsByPiloteResponse {
+  repeated Participation participations = 1;
+  int32 total = 2;
+}
+
+message GetParticipationsByCourseRequest {
+  string course_id = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+}
+
+message GetParticipationsByCourseResponse {
+  repeated Participation participations = 1;
+  int32 total = 2;
+}
+
+// ===========================
+// Messages - Statistiques
+// ===========================
+
+message GetOverallStatsRequest {
+  // Aucun paramètre requis
+}
+
+message GetOverallStatsResponse {
+  int32 total_stables = 1;
+  int32 total_pilotes = 2;
+  int32 total_courses = 3;
+  int32 total_participations = 4;
+  Stable most_successful_stable = 5;
+  Pilote best_pilote = 6;
+  Course latest_course = 7;
+}
+
+message GetLeaderboardRequest {
+  enum LeaderboardType {
+    PILOTES = 0;
+    STABLES = 1;
+  }
+  LeaderboardType type = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+}
+
+message GetLeaderboardResponse {
+  repeated LeaderboardEntry entries = 1;
+  int32 total = 2;
+}
+
+message LeaderboardEntry {
+  int32 position = 1;
+  string name = 2;
+  int32 points = 3;
+  int32 wins = 4;
+  int32 participations = 5;
+  double win_rate = 6;
+  oneof entity {
+    Pilote pilote = 7;
+    Stable stable = 8;
+  }
+}
+
+message GetTournamentStatsRequest {
+  optional google.protobuf.Timestamp date_from = 1;
+  optional google.protobuf.Timestamp date_to = 2;
+}
+
+message GetTournamentStatsResponse {
+  int32 total_tournaments = 1;
+  int32 total_participants = 2;
+  repeated TournamentResult results = 3;
+  double average_participants_per_tournament = 4;
+}
+
+message TournamentResult {
+  Course course = 1;
+  int32 participants_count = 2;
+  Participation winner = 3;
+  repeated Participation podium = 4;
+}
+
+// ===========================
+// Messages - Pagination et Filtres
+// ===========================
+
+message PaginationRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message PaginationResponse {
+  int32 total = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  bool has_next = 4;
+  bool has_previous = 5;
+}
+
+message SortOptions {
+  string field = 1;
+  enum SortOrder {
+    ASC = 0;
+    DESC = 1;
+  }
+  SortOrder order = 2;
+}
+
+message FilterOptions {
+  repeated Filter filters = 1;
+}
+
+message Filter {
+  string field = 1;
+  enum Operator {
+    EQUALS = 0;
+    NOT_EQUALS = 1;
+    GREATER_THAN = 2;
+    LESS_THAN = 3;
+    CONTAINS = 4;
+    STARTS_WITH = 5;
+    ENDS_WITH = 6;
+  }
+  Operator operator = 2;
+  string value = 3;
+}
+
+// ===========================
+// Messages - Erreurs
+// ===========================
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  repeated string details = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+// ===========================
+// Messages - Recherche Avancée
+// ===========================
+
+message SearchRequest {
+  string query = 1;
+  repeated string fields = 2;
+  optional PaginationRequest pagination = 3;
+  optional SortOptions sort = 4;
+  optional FilterOptions filters = 5;
+}
+
+message SearchResponse {
+  repeated SearchResult results = 1;
+  PaginationResponse pagination = 2;
+}
+
+message SearchResult {
+  oneof result {
+    Stable stable = 1;
+    Pilote pilote = 2;
+    Course course = 3;
+    Participation participation = 4;
+  }
+  double relevance_score = 5;
+  repeated string matched_fields = 6;
+} 
