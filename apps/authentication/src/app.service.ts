@@ -9,7 +9,10 @@ import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AppService {
-  constructor(private jwtService: JwtService, private prisma: PrismaService) {}
+  constructor(
+    private jwtService: JwtService,
+    private prisma: PrismaService,
+  ) {}
 
   async register(registerDto: RegisterDto) {
     const existingUser = await this.prisma.stable.findFirst({

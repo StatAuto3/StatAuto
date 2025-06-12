@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Exécution du pre-commit hook..."
+
+# Vérifier si des fichiers sont stagés
+if git diff --cached --name-only --diff-filter=ACM | grep -qE '\.(ts|tsx|js|jsx|mjs)$'; then
+  echo "📋 Fichiers TypeScript/JavaScript détectés, lancement du linting..."
+  
+  # Linter seulement les fichiers stagés
+  npx lint-staged
+  
+  echo "✅ Pre-commit hook terminé avec succès !"
+else
+  echo "ℹ️  Aucun fichier TypeScript/JavaScript à vérifier."
+fi 
