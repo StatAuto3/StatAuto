@@ -55,7 +55,7 @@ export class AppService {
           create: course.participants,
         },
       },
-      include: { participants: true },  
+      include: { participants: true },
     });
     return updatedCourse;
   }

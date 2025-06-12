@@ -15,12 +15,15 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(email: string, password: string): Promise<Omit<Stable, "password">> {
+  async validate(
+    email: string,
+    password: string,
+  ): Promise<Omit<Stable, 'password'>> {
     const user = await this.appService.validateLocalUser(email, password);
     if (!user) {
       throw new RpcException({
         code: status.UNAUTHENTICATED,
-        message: 'Identifiants invalides'
+        message: 'Identifiants invalides',
       });
     }
     return user;
