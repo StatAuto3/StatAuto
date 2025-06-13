@@ -50,6 +50,49 @@ export class AppController {
     return firstValueFrom(this.appService.getStableById(id));
   }
 
+  // === ENDPOINTS ÉCURIES SÉCURISÉS ===
+
+  @Put('stable/:id')
+  @UseGuards(AuthGuard)
+  async updateStable(
+    @Param('id') id: string,
+    @Body()
+    body: {
+      name?: string;
+      location?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+      image_cover?: string;
+    },
+    @Headers('authorization') authorization?: string,
+  ) {
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+      throw new Error(
+        "Token d'authentification requis pour modifier votre écurie",
+      );
+    }
+
+    return firstValueFrom(
+      this.appService.updateStable({ ...body, id }, authorization),
+    );
+  }
+
+  @Delete('stable/:id')
+  @UseGuards(AuthGuard)
+  async deleteStable(
+    @Param('id') id: string,
+    @Headers('authorization') authorization?: string,
+  ) {
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+      throw new Error(
+        "Token d'authentification requis pour supprimer votre écurie",
+      );
+    }
+
+    return firstValueFrom(this.appService.deleteStable(id, authorization));
+  }
+
   // === ENDPOINTS PILOTES SÉCURISÉS ===
 
   @Get('pilotes')
