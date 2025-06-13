@@ -53,8 +53,7 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <p className="font-bold text-inherit">STATAUTO</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -79,6 +78,7 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
+        <ThemeSwitch className="hidden lg:flex" />
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden lg:flex">
           <ButtonGroup>
@@ -91,7 +91,7 @@ export const Navbar = () => {
               {siteConfig.auth.login.label}
             </Button>
             <Button
-              className="text-sm font-normal text-default-600 bg-default-100"
+              color="primary"
               href={siteConfig.auth.register.href}
               as={NextLink}
               variant="flat"
@@ -113,7 +113,10 @@ export const Navbar = () => {
           {[...siteConfig.navItems, ...Object.values(siteConfig.auth)].map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                color="foreground"
+                color={
+                  item.label === "Register" ? "primary"
+                  : "foreground"
+                }
                 href={item.href}
                 size="lg"
               >

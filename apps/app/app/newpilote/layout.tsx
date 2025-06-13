@@ -1,4 +1,4 @@
-export default function BlogLayout({
+export default function NewPiloteLayout({
   children,
 }: {
   children: React.ReactNode;
