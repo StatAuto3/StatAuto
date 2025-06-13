@@ -4,8 +4,6 @@ generator client {
   output        = "../generated/prisma"
 }
 
-
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -17,6 +15,8 @@ model Stable {
   image_cover          String?
   name                 String
   location             String
+  email                String   @unique
+  password             String
   pilotes              Int      @default(0)
   pilote               Pilote[]
   how_many_tournaments Int      @default(0)

@@ -87,6 +87,17 @@ export interface GetCourseByIdResponse {
   course: Course;
 }
 
+// Interfaces pour les écuries
+export interface UpdateStableResponse {
+  stable: Stable;
+  message: string;
+}
+
+export interface DeleteStableResponse {
+  success: boolean;
+  message: string;
+}
+
 // Interfaces pour les pilotes
 export interface GetPilotesResponse {
   pilotes: Pilote[];
@@ -157,6 +168,22 @@ export interface GetMyPilotesInscriptionsResponse {
 interface StablesService {
   GetStables(data: { query: string }): Observable<GetStablesResponse>;
   GetStableById(data: { id: string }): Observable<GetStableByIdResponse>;
+  UpdateStable(
+    data: {
+      id: string;
+      name?: string;
+      location?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+      image_cover?: string;
+    },
+    metadata?: any,
+  ): Observable<UpdateStableResponse>;
+  DeleteStable(
+    data: { id: string },
+    metadata?: any,
+  ): Observable<DeleteStableResponse>;
 }
 
 interface AuthenticationService {
@@ -282,6 +309,32 @@ export class AppService {
 
   getCourseById(id: string): Observable<GetCourseByIdResponse> {
     return this.coursesService.GetCourseById({ id });
+  }
+
+  // === MÉTHODES ÉCURIES SÉCURISÉES ===
+
+  updateStable(
+    data: {
+      id: string;
+      name?: string;
+      location?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+      image_cover?: string;
+    },
+    authorization: string,
+  ): Observable<UpdateStableResponse> {
+    const metadata = { authorization };
+    return this.stablesService.UpdateStable(data, metadata);
+  }
+
+  deleteStable(
+    id: string,
+    authorization: string,
+  ): Observable<DeleteStableResponse> {
+    const metadata = { authorization };
+    return this.stablesService.DeleteStable({ id }, metadata);
   }
 
   // === MÉTHODES PILOTES SÉCURISÉES ===
