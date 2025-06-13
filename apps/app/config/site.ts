@@ -9,20 +9,12 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "New Pilote",
+      href: "/newpilote"
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
+      label: "Leaderboard",
+      href: "/leaderboard",
     },
   ],
   auth: {
@@ -33,6 +25,7 @@ export const siteConfig = {
     register: {
       label: "Register",
       href: "/register",
+      color: 'primary',
     }
   },
   links: {
