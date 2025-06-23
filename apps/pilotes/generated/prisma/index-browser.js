@@ -126,6 +126,11 @@ exports.Prisma.StableScalarFieldEnum = {
   image_cover: 'image_cover',
   name: 'name',
   location: 'location',
+<<<<<<< HEAD
+=======
+  email: 'email',
+  password: 'password',
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
   pilotes: 'pilotes',
   how_many_tournaments: 'how_many_tournaments',
   how_many_wins: 'how_many_wins',

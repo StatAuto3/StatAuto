@@ -9,9 +9,9 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        package: 'authentication',
-        protoPath: join(__dirname, '../proto/authentication.proto'),
-        url: 'localhost:5004',
+        package: 'statauto',
+        protoPath: join(__dirname, './proto/stat-auto-complete.proto'),
+        url: '0.0.0.0:5001',
         loader: {
           keepCase: true,
           longs: String,

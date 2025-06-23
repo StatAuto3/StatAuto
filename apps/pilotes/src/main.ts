@@ -9,9 +9,8 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        package: 'pilote', // Doit correspondre au package dans le proto
-        protoPath: join(__dirname, 'proto/pilote.proto'),
-        url: 'localhost:5001', // Port différent de celui des stables
+        package: 'statauto',
+        protoPath: join(__dirname, './proto/stat-auto-complete.proto'),
       },
     },
   );

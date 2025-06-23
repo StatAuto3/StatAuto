@@ -1,8 +1,4 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { status } from '@grpc/grpc-js';
 import { JwtService } from '@nestjs/jwt';
@@ -19,21 +15,18 @@ export class AuthGuard implements CanActivate {
     if (!token) {
       throw new RpcException({
         code: status.UNAUTHENTICATED,
-        message: 'Token manquant'
+        message: 'Token manquant',
       });
     }
     try {
-      const payload = await this.jwtService.verifyAsync(
-        token,
-        {
-          secret: jwtConstants.secret
-        }
-      );
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: jwtConstants.secret,
+      });
       request['user'] = payload;
     } catch {
       throw new RpcException({
         code: status.UNAUTHENTICATED,
-        message: 'Token invalide'
+        message: 'Token invalide',
       });
     }
     return true;

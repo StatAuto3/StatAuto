@@ -11,33 +11,97 @@ import { AppService } from './app.service';
         name: 'STABLES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'localhost:5003',
-          package: 'stable',
-          protoPath: join(__dirname, '../../stables/proto/stable.proto'),
+          url: 'stables:5003',
+          package: 'statauto',
+          protoPath: join(
+            __dirname,
+            '../../../packages/proto/stat-auto-complete.proto',
+          ),
+          loader: {
+            keepCase: true,
+            longs: String,
+            enums: String,
+            defaults: true,
+            oneofs: true,
+          },
         },
       },
       {
         name: 'AUTHENTICATION_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'localhost:5004',
-          package: 'authentication',
+          url: 'authentication:5004',
+          package: 'statauto',
           protoPath: join(
             __dirname,
-            '../../authentication/proto/authentication.proto',
+            '../../../packages/proto/stat-auto-complete.proto',
           ),
+          loader: {
+            keepCase: true,
+            longs: String,
+            enums: String,
+            defaults: true,
+            oneofs: true,
+          },
         },
       },
       {
-        name: 'PILOTE_PACKAGE',
+        name: 'COURSES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'localhost:5001',
-          package: 'pilote',
-          protoPath: join(__dirname, '../../pilotes/proto/pilote.proto'),
+          url: 'courses:5002',
+          package: 'statauto',
+          protoPath: join(
+            __dirname,
+            '../../../packages/proto/stat-auto-complete.proto',
+          ),
+          loader: {
+            keepCase: true,
+            longs: String,
+            enums: String,
+            defaults: true,
+            oneofs: true,
+          },
         },
       },
-
+      {
+        name: 'PILOTES_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          url: 'pilotes:5001',
+          package: 'statauto',
+          protoPath: join(
+            __dirname,
+            '../../../packages/proto/stat-auto-complete.proto',
+          ),
+          loader: {
+            keepCase: true,
+            longs: String,
+            enums: String,
+            defaults: true,
+            oneofs: true,
+          },
+        },
+      },
+      {
+        name: 'TOURNAMENTS_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          url: 'tournaments:5005',
+          package: 'statauto',
+          protoPath: join(
+            __dirname,
+            '../../../packages/proto/stat-auto-complete.proto',
+          ),
+          loader: {
+            keepCase: true,
+            longs: String,
+            enums: String,
+            defaults: true,
+            oneofs: true,
+          },
+        },
+      },
     ]),
   ],
   controllers: [AppController],

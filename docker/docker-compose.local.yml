@@ -1,29 +1,116 @@
-name: statauto
 services:
-  db:
-    build:
-      context: ./postgis
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+  postgres:
+    container_name: my-project-db
+    image: postgres:16-alpine
     environment:
-      POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
-
     ports:
-      - 5432:5432
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-project-network
 
   redis:
     image: redis:latest
     restart: unless-stopped
+    ports:
+      - "6379:6379"
     volumes:
       - redis-data:/data
+    networks:
+      - my-project-network
 
+  pilotes:
+    build:
+      context: ..
+      dockerfile: apps/pilotes/Dockerfile
+    environment:
+      PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
     ports:
-      - 6379:6379
+      - "3003:3000"  # HTTP
+      - "5003:5000"  # gRPC
+    networks:
+      - my-project-network
+
+  authentication:
+    build:
+      context: ..
+      dockerfile: apps/authentication/Dockerfile
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=auth"
+      PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "3001:3000"  # HTTP
+      - "5001:5000"  # gRPC
+    networks:
+      - my-project-network
+  stables:
+    build:
+      context: ..
+      dockerfile: apps/stables/Dockerfile
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=stables"
+      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
+    ports:
+      - "3002:3000"  # HTTP
+      - "5002:5000"  # gRPC
+    networks:
+      - my-project-network
+    depends_on:
+      - postgres
+
+  courses:
+    build:
+      context: ..
+      dockerfile: apps/courses/Dockerfile
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=courses"
+      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
+    ports:
+      - "3004:3000"  # HTTP
+      - "5004:5000"  # gRPC
+    networks:
+      - my-project-network
+    depends_on:
+      - postgres
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: apps/gateway/Dockerfile
+    environment:
+      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
+    depends_on:
+      - authentication
+      - courses
+      - pilotes
+      - stables
+    ports:
+      - "3005:3000"  # HTTP
+    networks:
+      - my-project-network
+
+  app:
+    build:
+      context: ..
+      dockerfile: apps/app/Dockerfile
+    depends_on:
+      - gateway
+    ports:
+      - "3000:3000"  # Frontend
+    networks:
+      - my-project-network
+
+networks:
+  my-project-network:
+    driver: bridge
 
 volumes:
-  postgres-data:
+  postgres_data:
   redis-data:

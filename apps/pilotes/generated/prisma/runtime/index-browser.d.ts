@@ -1,5 +1,8 @@
 declare class AnyNull extends NullTypesEnumValue {
+<<<<<<< HEAD
     #private;
+=======
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 }
 
 declare type Args<T, F extends Operation> = T extends {
@@ -15,11 +18,16 @@ declare type Args<T, F extends Operation> = T extends {
 } ? T[symbol]['types']['operations'][F]['args'] : any;
 
 declare class DbNull extends NullTypesEnumValue {
+<<<<<<< HEAD
     #private;
 }
 
 export declare function Decimal(n: Decimal.Value): Decimal;
 
+=======
+}
+
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 export declare namespace Decimal {
     export type Constructor = typeof Decimal;
     export type Instance = Decimal;
@@ -294,13 +302,20 @@ declare type Exact<A, W> = (A extends unknown ? (W extends A ? {
 export declare function getRuntime(): GetRuntimeOutput;
 
 declare type GetRuntimeOutput = {
+<<<<<<< HEAD
     id: RuntimeName;
+=======
+    id: Runtime;
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     prettyName: string;
     isEdge: boolean;
 };
 
 declare class JsonNull extends NullTypesEnumValue {
+<<<<<<< HEAD
     #private;
+=======
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 }
 
 /**
@@ -350,7 +365,11 @@ export declare const objectEnumValues: {
     };
 };
 
+<<<<<<< HEAD
 declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'updateManyAndReturn' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
+=======
+declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 
 declare namespace Public {
     export {
@@ -359,7 +378,11 @@ declare namespace Public {
 }
 export { Public }
 
+<<<<<<< HEAD
 declare type RuntimeName = 'workerd' | 'deno' | 'netlify' | 'node' | 'bun' | 'edge-light' | '';
+=======
+declare type Runtime = "edge-routine" | "workerd" | "deno" | "lagon" | "react-native" | "netlify" | "electron" | "node" | "bun" | "edge-light" | "fastly" | "unknown";
+>>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 
 declare function validator<V>(): <S>(select: Exact<S, V>) => S;
 

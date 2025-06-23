@@ -1266,6 +1266,8 @@ export namespace Prisma {
     image_cover: string | null
     name: string | null
     location: string | null
+    email: string | null
+    password: string | null
     pilotes: number | null
     how_many_tournaments: number | null
     how_many_wins: number | null
@@ -1280,6 +1282,8 @@ export namespace Prisma {
     image_cover: string | null
     name: string | null
     location: string | null
+    email: string | null
+    password: string | null
     pilotes: number | null
     how_many_tournaments: number | null
     how_many_wins: number | null
@@ -1294,6 +1298,8 @@ export namespace Prisma {
     image_cover: number
     name: number
     location: number
+    email: number
+    password: number
     pilotes: number
     how_many_tournaments: number
     how_many_wins: number
@@ -1325,6 +1331,8 @@ export namespace Prisma {
     image_cover?: true
     name?: true
     location?: true
+    email?: true
+    password?: true
     pilotes?: true
     how_many_tournaments?: true
     how_many_wins?: true
@@ -1339,6 +1347,8 @@ export namespace Prisma {
     image_cover?: true
     name?: true
     location?: true
+    email?: true
+    password?: true
     pilotes?: true
     how_many_tournaments?: true
     how_many_wins?: true
@@ -1353,6 +1363,8 @@ export namespace Prisma {
     image_cover?: true
     name?: true
     location?: true
+    email?: true
+    password?: true
     pilotes?: true
     how_many_tournaments?: true
     how_many_wins?: true
@@ -1455,6 +1467,8 @@ export namespace Prisma {
     image_cover: string | null
     name: string
     location: string
+    email: string | null
+    password: string | null
     pilotes: number
     how_many_tournaments: number
     how_many_wins: number
@@ -1489,6 +1503,8 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
+    email?: boolean
+    password?: boolean
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
@@ -1505,6 +1521,8 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
+    email?: boolean
+    password?: boolean
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
@@ -1520,6 +1538,8 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
+    email?: boolean
+    password?: boolean
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
@@ -1535,6 +1555,8 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
+    email?: boolean
+    password?: boolean
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
@@ -1543,7 +1565,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "createdAt" | "updatedAt", ExtArgs["result"]["stable"]>
+  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "email" | "password" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "createdAt" | "updatedAt", ExtArgs["result"]["stable"]>
   export type StableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pilote?: boolean | Stable$piloteArgs<ExtArgs>
     _count?: boolean | StableCountOutputTypeDefaultArgs<ExtArgs>
@@ -1562,6 +1584,8 @@ export namespace Prisma {
       image_cover: string | null
       name: string
       location: string
+      email: string | null
+      password: string | null
       pilotes: number
       how_many_tournaments: number
       how_many_wins: number
@@ -1997,6 +2021,8 @@ export namespace Prisma {
     readonly image_cover: FieldRef<"Stable", 'String'>
     readonly name: FieldRef<"Stable", 'String'>
     readonly location: FieldRef<"Stable", 'String'>
+    readonly email: FieldRef<"Stable", 'String'>
+    readonly password: FieldRef<"Stable", 'String'>
     readonly pilotes: FieldRef<"Stable", 'Int'>
     readonly how_many_tournaments: FieldRef<"Stable", 'Int'>
     readonly how_many_wins: FieldRef<"Stable", 'Int'>
@@ -5877,6 +5903,8 @@ export namespace Prisma {
     image_cover: 'image_cover',
     name: 'name',
     location: 'location',
+    email: 'email',
+    password: 'password',
     pilotes: 'pilotes',
     how_many_tournaments: 'how_many_tournaments',
     how_many_wins: 'how_many_wins',
@@ -6025,6 +6053,8 @@ export namespace Prisma {
     image_cover?: StringNullableFilter<"Stable"> | string | null
     name?: StringFilter<"Stable"> | string
     location?: StringFilter<"Stable"> | string
+    email?: StringNullableFilter<"Stable"> | string | null
+    password?: StringNullableFilter<"Stable"> | string | null
     pilotes?: IntFilter<"Stable"> | number
     how_many_tournaments?: IntFilter<"Stable"> | number
     how_many_wins?: IntFilter<"Stable"> | number
@@ -6040,6 +6070,8 @@ export namespace Prisma {
     image_cover?: SortOrderInput | SortOrder
     name?: SortOrder
     location?: SortOrder
+    email?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
@@ -6051,6 +6083,7 @@ export namespace Prisma {
 
   export type StableWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    email?: string
     AND?: StableWhereInput | StableWhereInput[]
     OR?: StableWhereInput[]
     NOT?: StableWhereInput | StableWhereInput[]
@@ -6058,6 +6091,7 @@ export namespace Prisma {
     image_cover?: StringNullableFilter<"Stable"> | string | null
     name?: StringFilter<"Stable"> | string
     location?: StringFilter<"Stable"> | string
+    password?: StringNullableFilter<"Stable"> | string | null
     pilotes?: IntFilter<"Stable"> | number
     how_many_tournaments?: IntFilter<"Stable"> | number
     how_many_wins?: IntFilter<"Stable"> | number
@@ -6065,7 +6099,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Stable"> | Date | string
     updatedAt?: DateTimeFilter<"Stable"> | Date | string
     pilote?: PiloteListRelationFilter
-  }, "id">
+  }, "id" | "email">
 
   export type StableOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6073,6 +6107,8 @@ export namespace Prisma {
     image_cover?: SortOrderInput | SortOrder
     name?: SortOrder
     location?: SortOrder
+    email?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
@@ -6095,6 +6131,8 @@ export namespace Prisma {
     image_cover?: StringNullableWithAggregatesFilter<"Stable"> | string | null
     name?: StringWithAggregatesFilter<"Stable"> | string
     location?: StringWithAggregatesFilter<"Stable"> | string
+    email?: StringNullableWithAggregatesFilter<"Stable"> | string | null
+    password?: StringNullableWithAggregatesFilter<"Stable"> | string | null
     pilotes?: IntWithAggregatesFilter<"Stable"> | number
     how_many_tournaments?: IntWithAggregatesFilter<"Stable"> | number
     how_many_wins?: IntWithAggregatesFilter<"Stable"> | number
@@ -6317,6 +6355,8 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
+    email?: string | null
+    password?: string | null
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
@@ -6332,6 +6372,8 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
+    email?: string | null
+    password?: string | null
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
@@ -6347,6 +6389,8 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
@@ -6362,6 +6406,8 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
@@ -6377,6 +6423,8 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
+    email?: string | null
+    password?: string | null
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
@@ -6391,6 +6439,8 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
@@ -6405,6 +6455,8 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
@@ -6701,6 +6753,8 @@ export namespace Prisma {
     image_cover?: SortOrder
     name?: SortOrder
     location?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
@@ -6722,6 +6776,8 @@ export namespace Prisma {
     image_cover?: SortOrder
     name?: SortOrder
     location?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
@@ -6736,6 +6792,8 @@ export namespace Prisma {
     image_cover?: SortOrder
     name?: SortOrder
     location?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
@@ -7455,6 +7513,8 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
+    email?: string | null
+    password?: string | null
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
@@ -7469,6 +7529,8 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
+    email?: string | null
+    password?: string | null
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
@@ -7529,6 +7591,8 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
@@ -7543,6 +7607,8 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number

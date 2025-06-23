@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod, RpcException } from '@nestjs/microservices';
+import { GrpcMethod } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
