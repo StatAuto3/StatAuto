@@ -4,9 +4,10 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "webpack": true,
+    "deleteOutDir": true,
     "assets": [
       {
-        "include": "proto/*.proto",
+        "include": "../proto/*.proto",
         "outDir": "dist/proto"
       }
     ],

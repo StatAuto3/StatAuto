@@ -1,12 +1,6 @@
 generator client {
-<<<<<<< HEAD
   provider = "prisma-client-js"
   output   = "../generated/prisma"
-=======
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
-  output        = "../generated/prisma"
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 }
 
 datasource db {
@@ -20,17 +14,14 @@ model Stable {
   image_cover          String?
   name                 String
   location             String
-<<<<<<< HEAD
-=======
   email                String   @unique
   password             String
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
   pilotes              Int      @default(0)
   pilote               Pilote[]
   how_many_tournaments Int      @default(0)
   how_many_wins        Int      @default(0)
   how_many_losses      Int      @default(0)
-  total_points         Int      @default(0) @ignore
+  total_points         Int      @default(0)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 }

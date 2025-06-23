@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package stable_type;
+import "packages/proto/types/pilote.type.proto";
+
+message StableType {
+  string id = 1;
+  string name = 2;
+  string location = 3;
+  string image = 4;
+  string image_cover = 5;
+  repeated pilote_type.PiloteType pilotes = 6;
+}

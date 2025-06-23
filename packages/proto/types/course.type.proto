@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package course_type;
+
+
+message CourseType {
+  string id = 1;
+}

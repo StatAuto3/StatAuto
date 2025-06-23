@@ -11,7 +11,7 @@ async function bootstrap() {
       options: {
         url: '0.0.0.0:5003',
         package: 'statauto',
-        protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+        protoPath: join(__dirname, '@statauto/stables.proto'),
         loader: {
           keepCase: true,
           longs: String,

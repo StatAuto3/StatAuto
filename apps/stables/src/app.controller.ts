@@ -62,6 +62,8 @@ export class AppController {
   async createStable(data: {
     name: string;
     location: string;
+    email: string;
+    password: string;
     image?: string;
     image_cover?: string;
   }) {

@@ -9,6 +9,11 @@
       "forceConsistentCasingInFileNames": true,
       "types": ["node"]
     },
-    "include": ["./**/*.ts"]
+    "include": ["./**/*.ts"],
+    "paths": {
+      "@statauto/*": [
+        "../../../packages/proto/*"
+      ]
+    }
   }
   

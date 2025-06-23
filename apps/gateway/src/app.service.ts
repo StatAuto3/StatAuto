@@ -283,6 +283,7 @@ export class AppService {
     @Inject('STABLES_PACKAGE') private stablesClient: ClientGrpc,
     @Inject('AUTHENTICATION_PACKAGE') private authClient: ClientGrpc,
     @Inject('PILOTES_PACKAGE') private pilotesClient: ClientGrpc,
+    @Inject('COURSES_PACKAGE') private coursesClient: ClientGrpc,
   ) {}
 
   onModuleInit() {
@@ -306,26 +307,12 @@ export class AppService {
     return this.stablesService.GetStableById({ id });
   }
 
-  register(
-    name: string,
-    email: string,
-    password: string,
-    location: string,
-    image?: string,
-    image_cover?: string,
-  ): Observable<RegisterResponse> {
-    return this.authenticationService.Register({
-      name,
-      email,
-      password,
-      location,
-      image,
-      image_cover,
-    });
+  register(body: RegisterRequest): Observable<RegisterResponse> {
+    return this.authenticationService.Register(body);
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.authenticationService.Login({ email, password });
+  login(body: LoginRequest): Observable<LoginResponse> {
+    return this.authenticationService.Login(body);
   }
 
   getCourses(): Observable<GetCoursesResponse> {

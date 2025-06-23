@@ -48,17 +48,18 @@ export class AppService {
   async createStable(data: {
     name: string;
     location: string;
-    email?: string;
-    password?: string;
+    email: string;
+    password: string;
     image?: string;
     image_cover?: string;
   }): Promise<StableWithPilotes> {
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     const stable = await this.prisma.stable.create({
       data: {
         name: data.name,
         location: data.location,
-        email: data.email || '',
-        password: data.password || '',
+        email: data.email,
+        password: hashedPassword,
         image: data.image || '',
         image_cover: data.image_cover || '',
         pilotes: 0,
@@ -71,7 +72,7 @@ export class AppService {
       },
     });
 
-    return stable;
+    return stable as StableWithPilotes;
   }
 
   /**

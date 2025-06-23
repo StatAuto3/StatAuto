@@ -151,8 +151,6 @@ message LoginRequest {
 
 message LoginResponse {
   string token = 1;
-  Stable stable = 2;
-  string message = 3;
 }
 
 message ValidateTokenRequest {
@@ -179,7 +177,6 @@ message GetStablesRequest {
 
 message GetStablesResponse {
   repeated Stable stables = 1;
-  int32 total = 2;
 }
 
 message GetStableByIdRequest {

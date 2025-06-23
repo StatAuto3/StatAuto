@@ -9,8 +9,11 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        package: 'statauto',
-        protoPath: join(__dirname, './proto/stat-auto-complete.proto'),
+        package: 'authentication',
+        protoPath: join(
+          __dirname,
+          '../../../packages/proto/authentication.proto',
+        ),
         url: '0.0.0.0:5001',
         loader: {
           keepCase: true,

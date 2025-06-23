@@ -256,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.10.1
+   * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
    */
   export type PrismaVersion = {
     client: string
@@ -1251,6 +1251,7 @@ export namespace Prisma {
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
+    total_points: number | null
   }
 
   export type StableSumAggregateOutputType = {
@@ -1258,6 +1259,7 @@ export namespace Prisma {
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
+    total_points: number | null
   }
 
   export type StableMinAggregateOutputType = {
@@ -1266,15 +1268,13 @@ export namespace Prisma {
     image_cover: string | null
     name: string | null
     location: string | null
-<<<<<<< HEAD
-=======
     email: string | null
     password: string | null
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes: number | null
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
+    total_points: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1285,15 +1285,13 @@ export namespace Prisma {
     image_cover: string | null
     name: string | null
     location: string | null
-<<<<<<< HEAD
-=======
     email: string | null
     password: string | null
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes: number | null
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
+    total_points: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1304,15 +1302,13 @@ export namespace Prisma {
     image_cover: number
     name: number
     location: number
-<<<<<<< HEAD
-=======
     email: number
     password: number
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes: number
     how_many_tournaments: number
     how_many_wins: number
     how_many_losses: number
+    total_points: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1324,6 +1320,7 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
   }
 
   export type StableSumAggregateInputType = {
@@ -1331,6 +1328,7 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
   }
 
   export type StableMinAggregateInputType = {
@@ -1339,15 +1337,13 @@ export namespace Prisma {
     image_cover?: true
     name?: true
     location?: true
-<<<<<<< HEAD
-=======
     email?: true
     password?: true
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: true
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1358,15 +1354,13 @@ export namespace Prisma {
     image_cover?: true
     name?: true
     location?: true
-<<<<<<< HEAD
-=======
     email?: true
     password?: true
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: true
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1377,15 +1371,13 @@ export namespace Prisma {
     image_cover?: true
     name?: true
     location?: true
-<<<<<<< HEAD
-=======
     email?: true
     password?: true
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: true
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1483,15 +1475,13 @@ export namespace Prisma {
     image_cover: string | null
     name: string
     location: string
-<<<<<<< HEAD
-=======
     email: string
     password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes: number
     how_many_tournaments: number
     how_many_wins: number
     how_many_losses: number
+    total_points: number
     createdAt: Date
     updatedAt: Date
     _count: StableCountAggregateOutputType | null
@@ -1521,15 +1511,13 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
-<<<<<<< HEAD
-=======
     email?: boolean
     password?: boolean
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     pilote?: boolean | Stable$piloteArgs<ExtArgs>
@@ -1542,15 +1530,13 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
-<<<<<<< HEAD
-=======
     email?: boolean
     password?: boolean
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["stable"]>
@@ -1561,15 +1547,13 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
-<<<<<<< HEAD
-=======
     email?: boolean
     password?: boolean
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["stable"]>
@@ -1580,24 +1564,18 @@ export namespace Prisma {
     image_cover?: boolean
     name?: boolean
     location?: boolean
-<<<<<<< HEAD
-=======
     email?: boolean
     password?: boolean
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: boolean
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-<<<<<<< HEAD
-  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "createdAt" | "updatedAt", ExtArgs["result"]["stable"]>
-=======
-  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "email" | "password" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "createdAt" | "updatedAt", ExtArgs["result"]["stable"]>
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
+  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "email" | "password" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "total_points" | "createdAt" | "updatedAt", ExtArgs["result"]["stable"]>
   export type StableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pilote?: boolean | Stable$piloteArgs<ExtArgs>
     _count?: boolean | StableCountOutputTypeDefaultArgs<ExtArgs>
@@ -1616,15 +1594,13 @@ export namespace Prisma {
       image_cover: string | null
       name: string
       location: string
-<<<<<<< HEAD
-=======
       email: string
       password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
       pilotes: number
       how_many_tournaments: number
       how_many_wins: number
       how_many_losses: number
+      total_points: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["stable"]>
@@ -2056,15 +2032,13 @@ export namespace Prisma {
     readonly image_cover: FieldRef<"Stable", 'String'>
     readonly name: FieldRef<"Stable", 'String'>
     readonly location: FieldRef<"Stable", 'String'>
-<<<<<<< HEAD
-=======
     readonly email: FieldRef<"Stable", 'String'>
     readonly password: FieldRef<"Stable", 'String'>
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     readonly pilotes: FieldRef<"Stable", 'Int'>
     readonly how_many_tournaments: FieldRef<"Stable", 'Int'>
     readonly how_many_wins: FieldRef<"Stable", 'Int'>
     readonly how_many_losses: FieldRef<"Stable", 'Int'>
+    readonly total_points: FieldRef<"Stable", 'Int'>
     readonly createdAt: FieldRef<"Stable", 'DateTime'>
     readonly updatedAt: FieldRef<"Stable", 'DateTime'>
   }
@@ -5941,15 +5915,13 @@ export namespace Prisma {
     image_cover: 'image_cover',
     name: 'name',
     location: 'location',
-<<<<<<< HEAD
-=======
     email: 'email',
     password: 'password',
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes: 'pilotes',
     how_many_tournaments: 'how_many_tournaments',
     how_many_wins: 'how_many_wins',
     how_many_losses: 'how_many_losses',
+    total_points: 'total_points',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6093,15 +6065,13 @@ export namespace Prisma {
     image_cover?: StringNullableFilter<"Stable"> | string | null
     name?: StringFilter<"Stable"> | string
     location?: StringFilter<"Stable"> | string
-<<<<<<< HEAD
-=======
     email?: StringFilter<"Stable"> | string
     password?: StringFilter<"Stable"> | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFilter<"Stable"> | number
     how_many_tournaments?: IntFilter<"Stable"> | number
     how_many_wins?: IntFilter<"Stable"> | number
     how_many_losses?: IntFilter<"Stable"> | number
+    total_points?: IntFilter<"Stable"> | number
     createdAt?: DateTimeFilter<"Stable"> | Date | string
     updatedAt?: DateTimeFilter<"Stable"> | Date | string
     pilote?: PiloteListRelationFilter
@@ -6113,15 +6083,13 @@ export namespace Prisma {
     image_cover?: SortOrderInput | SortOrder
     name?: SortOrder
     location?: SortOrder
-<<<<<<< HEAD
-=======
     email?: SortOrder
     password?: SortOrder
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     pilote?: PiloteOrderByRelationAggregateInput
@@ -6129,10 +6097,7 @@ export namespace Prisma {
 
   export type StableWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-<<<<<<< HEAD
-=======
     email?: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     AND?: StableWhereInput | StableWhereInput[]
     OR?: StableWhereInput[]
     NOT?: StableWhereInput | StableWhereInput[]
@@ -6140,22 +6105,16 @@ export namespace Prisma {
     image_cover?: StringNullableFilter<"Stable"> | string | null
     name?: StringFilter<"Stable"> | string
     location?: StringFilter<"Stable"> | string
-<<<<<<< HEAD
-=======
     password?: StringFilter<"Stable"> | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFilter<"Stable"> | number
     how_many_tournaments?: IntFilter<"Stable"> | number
     how_many_wins?: IntFilter<"Stable"> | number
     how_many_losses?: IntFilter<"Stable"> | number
+    total_points?: IntFilter<"Stable"> | number
     createdAt?: DateTimeFilter<"Stable"> | Date | string
     updatedAt?: DateTimeFilter<"Stable"> | Date | string
     pilote?: PiloteListRelationFilter
-<<<<<<< HEAD
-  }, "id">
-=======
   }, "id" | "email">
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
 
   export type StableOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6163,15 +6122,13 @@ export namespace Prisma {
     image_cover?: SortOrderInput | SortOrder
     name?: SortOrder
     location?: SortOrder
-<<<<<<< HEAD
-=======
     email?: SortOrder
     password?: SortOrder
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: StableCountOrderByAggregateInput
@@ -6190,15 +6147,13 @@ export namespace Prisma {
     image_cover?: StringNullableWithAggregatesFilter<"Stable"> | string | null
     name?: StringWithAggregatesFilter<"Stable"> | string
     location?: StringWithAggregatesFilter<"Stable"> | string
-<<<<<<< HEAD
-=======
     email?: StringWithAggregatesFilter<"Stable"> | string
     password?: StringWithAggregatesFilter<"Stable"> | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntWithAggregatesFilter<"Stable"> | number
     how_many_tournaments?: IntWithAggregatesFilter<"Stable"> | number
     how_many_wins?: IntWithAggregatesFilter<"Stable"> | number
     how_many_losses?: IntWithAggregatesFilter<"Stable"> | number
+    total_points?: IntWithAggregatesFilter<"Stable"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Stable"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Stable"> | Date | string
   }
@@ -6417,15 +6372,13 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
-<<<<<<< HEAD
-=======
     email: string
     password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     pilote?: PiloteCreateNestedManyWithoutStableInput
@@ -6437,15 +6390,13 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
-<<<<<<< HEAD
-=======
     email: string
     password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     pilote?: PiloteUncheckedCreateNestedManyWithoutStableInput
@@ -6457,15 +6408,13 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
-=======
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pilote?: PiloteUpdateManyWithoutStableNestedInput
@@ -6477,15 +6426,13 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
-=======
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pilote?: PiloteUncheckedUpdateManyWithoutStableNestedInput
@@ -6497,15 +6444,13 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
-<<<<<<< HEAD
-=======
     email: string
     password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6516,15 +6461,13 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
-=======
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6535,15 +6478,13 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
-=======
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6836,15 +6777,13 @@ export namespace Prisma {
     image_cover?: SortOrder
     name?: SortOrder
     location?: SortOrder
-<<<<<<< HEAD
-=======
     email?: SortOrder
     password?: SortOrder
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6854,6 +6793,7 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
   }
 
   export type StableMaxOrderByAggregateInput = {
@@ -6862,15 +6802,13 @@ export namespace Prisma {
     image_cover?: SortOrder
     name?: SortOrder
     location?: SortOrder
-<<<<<<< HEAD
-=======
     email?: SortOrder
     password?: SortOrder
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6881,15 +6819,13 @@ export namespace Prisma {
     image_cover?: SortOrder
     name?: SortOrder
     location?: SortOrder
-<<<<<<< HEAD
-=======
     email?: SortOrder
     password?: SortOrder
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: SortOrder
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6899,6 +6835,7 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7605,15 +7542,13 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
-<<<<<<< HEAD
-=======
     email: string
     password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7624,15 +7559,13 @@ export namespace Prisma {
     image_cover?: string | null
     name: string
     location: string
-<<<<<<< HEAD
-=======
     email: string
     password: string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: number
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7689,15 +7622,13 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
-=======
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7708,15 +7639,13 @@ export namespace Prisma {
     image_cover?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
-=======
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
->>>>>>> d4d2763b7ebf3f7e52eee5672efa7052b226680c
     pilotes?: IntFieldUpdateOperationsInput | number
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
