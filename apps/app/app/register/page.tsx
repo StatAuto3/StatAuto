@@ -9,6 +9,7 @@ import { Card, CardBody } from "@heroui/card";
 import { siteConfig } from "@/config/site";
 import { validateEmail, validatePasswords } from "../utils/validations";
 import NextLink from "next/link";
+import { useUser } from "../contexts/UserContext.provider";
 
 interface Errors {
     stable?: string;
@@ -16,6 +17,8 @@ interface Errors {
 }
 
 export default function RegisterPage() {
+  const { setUser } = useUser();
+
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [submitted, setSubmitted] = React.useState(null);
