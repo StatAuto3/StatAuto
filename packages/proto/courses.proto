@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package courses;
+
+import "google/protobuf/timestamp.proto";
+import "types/course.type.proto";
+import "types/participation.type.proto";
+
+service CoursesService {
+  rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
+  rpc GetCourseById(GetCourseByIdRequest) returns (GetCourseByIdResponse);
+  rpc CreateCourse(CreateCourseRequest) returns (CreateCourseResponse);
+  rpc UpdateCourse(UpdateCourseRequest) returns (UpdateCourseResponse);
+  rpc DeleteCourse(DeleteCourseRequest) returns (DeleteCourseResponse);
+  rpc GetCourseResults(GetCourseResultsRequest) returns (GetCourseResultsResponse);
+}
+
+message GetCoursesRequest {
+  optional string query = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+  optional string sort_by = 4;
+  optional string sort_order = 5;
+  optional google.protobuf.Timestamp date_from = 6;
+  optional google.protobuf.Timestamp date_to = 7;
+}
+
+message GetCoursesResponse {
+  repeated course_type.CourseType courses = 1;
+  int32 total = 2;
+}
+
+message GetCourseByIdRequest {
+  string id = 1;
+}
+
+message GetCourseByIdResponse {
+  course_type.CourseType course = 1;
+}
+
+message CreateCourseRequest {
+  string name = 1;
+  optional string image = 2;
+  google.protobuf.Timestamp date = 3;
+  int32 nb_tours = 4;
+}
+
+message CreateCourseResponse {
+  course_type.CourseType course = 1;
+  string message = 2;
+}
+
+message UpdateCourseRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string image = 3;
+  optional google.protobuf.Timestamp date = 4;
+  optional int32 nb_tours = 5;
+}
+
+message UpdateCourseResponse {
+  course_type.CourseType course = 1;
+  string message = 2;
+}
+
+message DeleteCourseRequest {
+  string id = 1;
+}
+
+message DeleteCourseResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetCourseResultsRequest {
+  string course_id = 1;
+  optional int32 limit = 2;
+  optional int32 offset = 3;
+}
+
+message GetCourseResultsResponse {
+  repeated participation_type.ParticipationType results = 1;
+  int32 total_participants = 2;
+}

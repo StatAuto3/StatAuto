@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package pilote_type;
+
+message PiloteType {
+  string id = 1;
+  string name = 2;
+  string stableId = 3;
+  int32 age = 4;
+  string gender = 5;
+  int32 best_chrono_time = 6;
+  int32 pilote_number = 7;
+  int32 points = 8;
+}

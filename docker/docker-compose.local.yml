@@ -26,8 +26,13 @@ services:
   pilotes:
     build:
       context: ..
-      dockerfile: apps/pilotes/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: pilotes
+      no_cache: true
     environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=pilotes"
       PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
     ports:
       - "3003:3000"  # HTTP
@@ -38,7 +43,11 @@ services:
   authentication:
     build:
       context: ..
-      dockerfile: apps/authentication/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: authentication
+      no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=auth"
       PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
@@ -53,7 +62,11 @@ services:
   stables:
     build:
       context: ..
-      dockerfile: apps/stables/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: stables
+      no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=stables"
       PROTO_PATH: "/app/proto/stat-auto-complete.proto"
@@ -68,7 +81,11 @@ services:
   courses:
     build:
       context: ..
-      dockerfile: apps/courses/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: courses
+      no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=courses"
       PROTO_PATH: "/app/proto/stat-auto-complete.proto"

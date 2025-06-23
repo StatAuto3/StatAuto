@@ -256,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.10.1
+   * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
    */
   export type PrismaVersion = {
     client: string
@@ -1251,6 +1251,7 @@ export namespace Prisma {
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
+    total_points: number | null
   }
 
   export type StableSumAggregateOutputType = {
@@ -1258,6 +1259,7 @@ export namespace Prisma {
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
+    total_points: number | null
   }
 
   export type StableMinAggregateOutputType = {
@@ -1270,10 +1272,11 @@ export namespace Prisma {
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
-    email: string | null
-    password: string | null
+    total_points: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    email: string | null
+    password: string | null
   }
 
   export type StableMaxAggregateOutputType = {
@@ -1286,10 +1289,11 @@ export namespace Prisma {
     how_many_tournaments: number | null
     how_many_wins: number | null
     how_many_losses: number | null
-    email: string | null
-    password: string | null
+    total_points: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    email: string | null
+    password: string | null
   }
 
   export type StableCountAggregateOutputType = {
@@ -1302,10 +1306,11 @@ export namespace Prisma {
     how_many_tournaments: number
     how_many_wins: number
     how_many_losses: number
-    email: number
-    password: number
+    total_points: number
     createdAt: number
     updatedAt: number
+    email: number
+    password: number
     _all: number
   }
 
@@ -1315,6 +1320,7 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
   }
 
   export type StableSumAggregateInputType = {
@@ -1322,6 +1328,7 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
+    total_points?: true
   }
 
   export type StableMinAggregateInputType = {
@@ -1334,10 +1341,11 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
-    email?: true
-    password?: true
+    total_points?: true
     createdAt?: true
     updatedAt?: true
+    email?: true
+    password?: true
   }
 
   export type StableMaxAggregateInputType = {
@@ -1350,10 +1358,11 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
-    email?: true
-    password?: true
+    total_points?: true
     createdAt?: true
     updatedAt?: true
+    email?: true
+    password?: true
   }
 
   export type StableCountAggregateInputType = {
@@ -1366,10 +1375,11 @@ export namespace Prisma {
     how_many_tournaments?: true
     how_many_wins?: true
     how_many_losses?: true
-    email?: true
-    password?: true
+    total_points?: true
     createdAt?: true
     updatedAt?: true
+    email?: true
+    password?: true
     _all?: true
   }
 
@@ -1469,10 +1479,11 @@ export namespace Prisma {
     how_many_tournaments: number
     how_many_wins: number
     how_many_losses: number
-    email: string
-    password: string
+    total_points: number
     createdAt: Date
     updatedAt: Date
+    email: string
+    password: string
     _count: StableCountAggregateOutputType | null
     _avg: StableAvgAggregateOutputType | null
     _sum: StableSumAggregateOutputType | null
@@ -1504,10 +1515,11 @@ export namespace Prisma {
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
-    email?: boolean
-    password?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    email?: boolean
+    password?: boolean
     pilote?: boolean | Stable$piloteArgs<ExtArgs>
     _count?: boolean | StableCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["stable"]>
@@ -1522,10 +1534,11 @@ export namespace Prisma {
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
-    email?: boolean
-    password?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    email?: boolean
+    password?: boolean
   }, ExtArgs["result"]["stable"]>
 
   export type StableSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1538,10 +1551,11 @@ export namespace Prisma {
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
-    email?: boolean
-    password?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    email?: boolean
+    password?: boolean
   }, ExtArgs["result"]["stable"]>
 
   export type StableSelectScalar = {
@@ -1554,13 +1568,14 @@ export namespace Prisma {
     how_many_tournaments?: boolean
     how_many_wins?: boolean
     how_many_losses?: boolean
-    email?: boolean
-    password?: boolean
+    total_points?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    email?: boolean
+    password?: boolean
   }
 
-  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["stable"]>
+  export type StableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "image_cover" | "name" | "location" | "pilotes" | "how_many_tournaments" | "how_many_wins" | "how_many_losses" | "total_points" | "createdAt" | "updatedAt" | "email" | "password", ExtArgs["result"]["stable"]>
   export type StableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pilote?: boolean | Stable$piloteArgs<ExtArgs>
     _count?: boolean | StableCountOutputTypeDefaultArgs<ExtArgs>
@@ -1583,10 +1598,11 @@ export namespace Prisma {
       how_many_tournaments: number
       how_many_wins: number
       how_many_losses: number
-      email: string
-      password: string
+      total_points: number
       createdAt: Date
       updatedAt: Date
+      email: string
+      password: string
     }, ExtArgs["result"]["stable"]>
     composites: {}
   }
@@ -2020,10 +2036,11 @@ export namespace Prisma {
     readonly how_many_tournaments: FieldRef<"Stable", 'Int'>
     readonly how_many_wins: FieldRef<"Stable", 'Int'>
     readonly how_many_losses: FieldRef<"Stable", 'Int'>
-    readonly email: FieldRef<"Stable", 'String'>
-    readonly password: FieldRef<"Stable", 'String'>
+    readonly total_points: FieldRef<"Stable", 'Int'>
     readonly createdAt: FieldRef<"Stable", 'DateTime'>
     readonly updatedAt: FieldRef<"Stable", 'DateTime'>
+    readonly email: FieldRef<"Stable", 'String'>
+    readonly password: FieldRef<"Stable", 'String'>
   }
     
 
@@ -5902,10 +5919,11 @@ export namespace Prisma {
     how_many_tournaments: 'how_many_tournaments',
     how_many_wins: 'how_many_wins',
     how_many_losses: 'how_many_losses',
-    email: 'email',
-    password: 'password',
+    total_points: 'total_points',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    email: 'email',
+    password: 'password'
   };
 
   export type StableScalarFieldEnum = (typeof StableScalarFieldEnum)[keyof typeof StableScalarFieldEnum]
@@ -6051,10 +6069,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFilter<"Stable"> | number
     how_many_wins?: IntFilter<"Stable"> | number
     how_many_losses?: IntFilter<"Stable"> | number
-    email?: StringFilter<"Stable"> | string
-    password?: StringFilter<"Stable"> | string
+    total_points?: IntFilter<"Stable"> | number
     createdAt?: DateTimeFilter<"Stable"> | Date | string
     updatedAt?: DateTimeFilter<"Stable"> | Date | string
+    email?: StringFilter<"Stable"> | string
+    password?: StringFilter<"Stable"> | string
     pilote?: PiloteListRelationFilter
   }
 
@@ -6068,15 +6087,17 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     pilote?: PiloteOrderByRelationAggregateInput
   }
 
   export type StableWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    email?: string
     AND?: StableWhereInput | StableWhereInput[]
     OR?: StableWhereInput[]
     NOT?: StableWhereInput | StableWhereInput[]
@@ -6088,12 +6109,12 @@ export namespace Prisma {
     how_many_tournaments?: IntFilter<"Stable"> | number
     how_many_wins?: IntFilter<"Stable"> | number
     how_many_losses?: IntFilter<"Stable"> | number
-    email?: StringFilter<"Stable"> | string
-    password?: StringFilter<"Stable"> | string
+    total_points?: IntFilter<"Stable"> | number
     createdAt?: DateTimeFilter<"Stable"> | Date | string
     updatedAt?: DateTimeFilter<"Stable"> | Date | string
+    password?: StringFilter<"Stable"> | string
     pilote?: PiloteListRelationFilter
-  }, "id">
+  }, "id" | "email">
 
   export type StableOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6105,10 +6126,11 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     _count?: StableCountOrderByAggregateInput
     _avg?: StableAvgOrderByAggregateInput
     _max?: StableMaxOrderByAggregateInput
@@ -6129,10 +6151,11 @@ export namespace Prisma {
     how_many_tournaments?: IntWithAggregatesFilter<"Stable"> | number
     how_many_wins?: IntWithAggregatesFilter<"Stable"> | number
     how_many_losses?: IntWithAggregatesFilter<"Stable"> | number
-    email?: StringWithAggregatesFilter<"Stable"> | string
-    password?: StringWithAggregatesFilter<"Stable"> | string
+    total_points?: IntWithAggregatesFilter<"Stable"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Stable"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Stable"> | Date | string
+    email?: StringWithAggregatesFilter<"Stable"> | string
+    password?: StringWithAggregatesFilter<"Stable"> | string
   }
 
   export type PiloteWhereInput = {
@@ -6353,10 +6376,11 @@ export namespace Prisma {
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
-    email: string
-    password: string
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    email: string
+    password: string
     pilote?: PiloteCreateNestedManyWithoutStableInput
   }
 
@@ -6370,10 +6394,11 @@ export namespace Prisma {
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
-    email: string
-    password: string
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    email: string
+    password: string
     pilote?: PiloteUncheckedCreateNestedManyWithoutStableInput
   }
 
@@ -6387,10 +6412,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     pilote?: PiloteUpdateManyWithoutStableNestedInput
   }
 
@@ -6404,10 +6430,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     pilote?: PiloteUncheckedUpdateManyWithoutStableNestedInput
   }
 
@@ -6421,10 +6448,11 @@ export namespace Prisma {
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
-    email: string
-    password: string
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    email: string
+    password: string
   }
 
   export type StableUpdateManyMutationInput = {
@@ -6437,10 +6465,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type StableUncheckedUpdateManyInput = {
@@ -6453,10 +6482,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type PiloteCreateInput = {
@@ -6751,10 +6781,11 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
   }
 
   export type StableAvgOrderByAggregateInput = {
@@ -6762,6 +6793,7 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
   }
 
   export type StableMaxOrderByAggregateInput = {
@@ -6774,10 +6806,11 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
   }
 
   export type StableMinOrderByAggregateInput = {
@@ -6790,10 +6823,11 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
+    total_points?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
   }
 
   export type StableSumOrderByAggregateInput = {
@@ -6801,6 +6835,7 @@ export namespace Prisma {
     how_many_tournaments?: SortOrder
     how_many_wins?: SortOrder
     how_many_losses?: SortOrder
+    total_points?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7511,10 +7546,11 @@ export namespace Prisma {
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
-    email: string
-    password: string
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    email: string
+    password: string
   }
 
   export type StableUncheckedCreateWithoutPiloteInput = {
@@ -7527,10 +7563,11 @@ export namespace Prisma {
     how_many_tournaments?: number
     how_many_wins?: number
     how_many_losses?: number
-    email: string
-    password: string
+    total_points?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    email: string
+    password: string
   }
 
   export type StableCreateOrConnectWithoutPiloteInput = {
@@ -7589,10 +7626,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type StableUncheckedUpdateWithoutPiloteInput = {
@@ -7605,10 +7643,11 @@ export namespace Prisma {
     how_many_tournaments?: IntFieldUpdateOperationsInput | number
     how_many_wins?: IntFieldUpdateOperationsInput | number
     how_many_losses?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    total_points?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type ParticipationCreateWithoutCourseInput = {

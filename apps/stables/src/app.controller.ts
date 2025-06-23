@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @GrpcMethod('StablesService', 'GetStables')
-  async getStables(data: { query: string }) {
+  async getStables() {
     const stables = await this.appService.getStables();
 
     return {
@@ -34,11 +34,32 @@ export class AppController {
   }
 
   @GrpcMethod('StablesService', 'GetStableById')
-  async getStableById(data: { id: string }) {
+  @UseGuards(AuthGuard)
+  async getStableById(data: { id: string }, metadata: any) {
+    const user = metadata.user;
+    if (!user) {
+      throw new RpcException({
+        code: status.UNAUTHENTICATED,
+        message:
+          'Vous devez être connecté pour voir les détails de cette écurie',
+      });
+    }
+
+    // Vérifier que l'utilisateur ne peut voir que sa propre écurie
+    if (data.id !== user.sub) {
+      throw new RpcException({
+        code: status.PERMISSION_DENIED,
+        message: 'Vous ne pouvez voir que les détails de votre propre écurie',
+      });
+    }
+
     const stable = await this.appService.getStableById(data.id);
 
     if (!stable) {
-      return { stable: null };
+      throw new RpcException({
+        code: status.NOT_FOUND,
+        message: 'Écurie non trouvée',
+      });
     }
 
     // Calculer le total des points comme la somme des points de tous les pilotes
@@ -62,6 +83,8 @@ export class AppController {
   async createStable(data: {
     name: string;
     location: string;
+    email: string;
+    password: string;
     image?: string;
     image_cover?: string;
   }) {
