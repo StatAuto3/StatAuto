@@ -184,6 +184,14 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl"
       }
     ],
     "previewFeatures": [],
@@ -191,7 +199,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -210,8 +218,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Stable {\n  id                   String   @id @default(uuid())\n  image                String?\n  image_cover          String?\n  name                 String\n  location             String\n  email                String   @unique\n  password             String\n  pilotes              Int      @default(0)\n  pilote               Pilote[]\n  how_many_tournaments Int      @default(0)\n  how_many_wins        Int      @default(0)\n  how_many_losses      Int      @default(0)\n  total_points         Int      @default(0)\n  createdAt            DateTime @default(now())\n  updatedAt            DateTime @updatedAt\n}\n\nmodel Pilote {\n  id               String          @id @default(uuid())\n  name             String\n  stableId         String\n  age              Int\n  gender           String\n  best_chrono_time Int\n  courses          Participation[]\n  pilote_number    Int\n  points           Int             @default(0)\n  Stable           Stable          @relation(fields: [stableId], references: [id])\n}\n\nmodel Course {\n  id           String          @id @default(uuid())\n  name         String\n  image        String?\n  date         DateTime\n  nb_tours     Int\n  participants Participation[]\n}\n\nmodel Participation {\n  id        String   @id @default(uuid())\n  piloteId  String\n  courseId  String\n  chrono    Int?\n  position  Int?\n  points    Int      @default(0)\n  pilote    Pilote   @relation(fields: [piloteId], references: [id])\n  course    Course   @relation(fields: [courseId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([piloteId, courseId])\n}\n",
-  "inlineSchemaHash": "048c11b7017ce4579638e89b0b45b62a44199367b4f5085f82c45dfa942d4d90",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\", \"linux-musl\"]\n  output        = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Stable {\n  id                   String   @id @default(uuid())\n  image                String?\n  image_cover          String?\n  name                 String\n  location             String\n  email                String   @unique\n  password             String\n  pilotes              Int      @default(0)\n  pilote               Pilote[]\n  how_many_tournaments Int      @default(0)\n  how_many_wins        Int      @default(0)\n  how_many_losses      Int      @default(0)\n  total_points         Int      @default(0)\n  createdAt            DateTime @default(now())\n  updatedAt            DateTime @updatedAt\n}\n\nmodel Pilote {\n  id               String          @id @default(uuid())\n  name             String\n  stableId         String\n  age              Int\n  gender           String\n  best_chrono_time Int\n  courses          Participation[]\n  pilote_number    Int\n  points           Int             @default(0)\n  Stable           Stable          @relation(fields: [stableId], references: [id])\n}\n\nmodel Course {\n  id           String          @id @default(uuid())\n  name         String\n  image        String?\n  date         DateTime\n  nb_tours     Int\n  participants Participation[]\n}\n\nmodel Participation {\n  id        String   @id @default(uuid())\n  piloteId  String\n  courseId  String\n  chrono    Int?\n  position  Int?\n  points    Int      @default(0)\n  pilote    Pilote   @relation(fields: [piloteId], references: [id])\n  course    Course   @relation(fields: [courseId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([piloteId, courseId])\n}\n",
+  "inlineSchemaHash": "128931c39c5f00d5e695662cc85d41f9025b7e7c59db9e032af3afa3049fffaa",
   "copyEngine": true
 }
 
@@ -252,6 +260,14 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-linux-musl-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-linux-musl.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

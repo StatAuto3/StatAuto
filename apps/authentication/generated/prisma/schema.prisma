@@ -19,11 +19,11 @@ model Stable {
   how_many_tournaments Int      @default(0)
   how_many_wins        Int      @default(0)
   how_many_losses      Int      @default(0)
-  total_points         Int?     @default(0) @ignore
-  email                String
-  password             String
+  total_points         Int      @default(0)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+  email                String   @unique
+  password             String
   pilote               Pilote[]
 }
 

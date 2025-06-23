@@ -36,8 +36,14 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractTokenFromMetadata(metadata: any): string | undefined {
-    // Pour gRPC, le token est généralement dans les métadonnées
-    const authMetadata = metadata?.authorization || metadata?.Authorization;
+    // Pour gRPC avec NestJS, utiliser metadata.get() pour accéder aux métadonnées
+    let authMetadata = metadata.get && metadata.get('authorization');
+
+    // Si c'est un tableau, prendre le premier élément
+    if (Array.isArray(authMetadata)) {
+      authMetadata = authMetadata[0];
+    }
+
     if (!authMetadata) return undefined;
 
     const [type, token] = authMetadata.split(' ');

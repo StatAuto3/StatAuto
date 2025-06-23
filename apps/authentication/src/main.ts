@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { AllExceptionsFilter } from './filters/rpc-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -21,10 +22,15 @@ async function bootstrap() {
           enums: String,
           defaults: true,
           oneofs: true,
+          includeDirs: [join(__dirname, '../../../packages')],
         },
       },
     },
   );
+
+  // Appliquer le filtre d'exceptions personnalisé
+  app.useGlobalFilters(new AllExceptionsFilter());
+
   await app.listen();
 }
 bootstrap();

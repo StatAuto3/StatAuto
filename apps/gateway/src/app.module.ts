@@ -40,6 +40,7 @@ import { AppService } from './app.service';
             enums: String,
             defaults: true,
             oneofs: true,
+            includeDirs: [join(__dirname, '../../../packages')],
           },
         },
       },
@@ -56,6 +57,7 @@ import { AppService } from './app.service';
             enums: String,
             defaults: true,
             oneofs: true,
+            includeDirs: [join(__dirname, '../../../packages')],
           },
         },
       },
@@ -63,7 +65,7 @@ import { AppService } from './app.service';
         name: 'PILOTES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'localhost:5001',
+          url: 'localhost:5004',
           package: 'pilotes',
           protoPath: join(__dirname, '../../../packages/proto/pilotes.proto'),
           loader: {
@@ -72,25 +74,7 @@ import { AppService } from './app.service';
             enums: String,
             defaults: true,
             oneofs: true,
-          },
-        },
-      },
-      {
-        name: 'TOURNAMENTS_PACKAGE',
-        transport: Transport.GRPC,
-        options: {
-          url: 'localhost:5005',
-          package: 'tournaments',
-          protoPath: join(
-            __dirname,
-            '../../../packages/proto/tournaments.proto',
-          ),
-          loader: {
-            keepCase: true,
-            longs: String,
-            enums: String,
-            defaults: true,
-            oneofs: true,
+            includeDirs: [join(__dirname, '../../../packages')],
           },
         },
       },

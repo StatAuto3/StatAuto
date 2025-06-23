@@ -1,13 +1,18 @@
 syntax = "proto3";
 
 package stable_type;
-import "./pilote.type.proto";
+import "types/pilote.type.proto";
 
 message StableType {
   string id = 1;
   string name = 2;
   string location = 3;
-  string image = 4;
-  string image_cover = 5;
-  repeated pilote_type.PiloteType pilotes = 6;
+  optional string image = 4;
+  optional string image_cover = 5;
+  int32 pilotes = 6;
+  int32 how_many_tournaments = 7;
+  int32 how_many_wins = 8;
+  int32 how_many_losses = 9;
+  optional int32 total_points = 10;
+  repeated pilote_type.PiloteType pilote = 11;
 }

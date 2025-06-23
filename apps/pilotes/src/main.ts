@@ -11,6 +11,15 @@ async function bootstrap() {
       options: {
         package: 'pilotes',
         protoPath: join(__dirname, '../../../packages/proto/pilotes.proto'),
+        url: '0.0.0.0:5004',
+        loader: {
+          keepCase: true,
+          longs: String,
+          enums: String,
+          defaults: true,
+          oneofs: true,
+          includeDirs: [join(__dirname, '../../../packages')],
+        },
       },
     },
   );

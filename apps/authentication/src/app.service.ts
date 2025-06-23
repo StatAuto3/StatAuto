@@ -12,54 +12,75 @@ export class AppService {
   constructor(private jwtService: JwtService, private prisma: PrismaService) {}
 
   async register(registerDto: RegisterDto) {
-    const existingUser = await this.prisma.stable.findFirst({
-      where: {
-        email: registerDto.email,
-      },
-    });
+    console.log('Starting registration process for:', registerDto.email);
 
-    if (existingUser) {
-      throw new RpcException({
-        code: status.ALREADY_EXISTS,
-        message: 'Cet email est déjà utilisé',
-      });
-    }
-
-    const hashedPassword = await bcrypt.hash(registerDto.password, 10);
-
-    const user = await this.prisma.stable.create({
-      data: {
-        ...registerDto,
-        password: hashedPassword,
-      },
-    });
-    const payload = { email: user.email, sub: user.id };
-    console.log('payload', payload);
     try {
-      const token = this.jwtService.sign(payload); // ça 🌵 ici
+      const existingUser = await this.prisma.stable.findFirst({
+        where: {
+          email: registerDto.email,
+        },
+      });
+
+      if (existingUser) {
+        throw new RpcException({
+          code: status.ALREADY_EXISTS,
+          message: 'Cet email est déjà utilisé',
+        });
+      }
+
+      const hashedPassword = await bcrypt.hash(registerDto.password, 10);
+
+      const user = await this.prisma.stable.create({
+        data: {
+          name: registerDto.name,
+          email: registerDto.email,
+          password: hashedPassword,
+          location: registerDto.location,
+          image: registerDto.image,
+          image_cover: registerDto.image_cover,
+        },
+      });
+
+      const payload = { email: user.email, sub: user.id };
+
+      const token = this.jwtService.sign(payload);
       return { token };
     } catch (error) {
-      console.log('error', error);
+      if (error instanceof RpcException) {
+        throw error;
+      }
+
       throw new RpcException({
-        message: error.message,
+        code: status.INTERNAL,
+        message: `Erreur lors de l'inscription: ${error.message}`,
       });
     }
   }
 
   async login(loginDto: LoginDto) {
-    const user = await this.validateUser(loginDto.email, loginDto.password);
+    try {
+      const user = await this.validateUser(loginDto.email, loginDto.password);
 
-    if (!user) {
+      if (!user) {
+        throw new RpcException({
+          code: status.UNAUTHENTICATED,
+          message: 'Identifiants invalides',
+        });
+      }
+
+      const payload = { email: user.email, sub: user.id };
+      const token = this.jwtService.sign(payload);
+      return { token };
+    } catch (error) {
+      if (error instanceof RpcException) {
+        throw error;
+      }
+
       throw new RpcException({
-        code: status.UNAUTHENTICATED,
-        message: 'Identifiants invalides',
+        code: status.INTERNAL,
+        message: `Erreur lors de la connexion: ${error.message}`,
       });
     }
-
-    const payload = { email: user.email, sub: user.id };
-    const token = this.jwtService.sign(payload); // ça 🌵 ici
-
-    return { token };
   }
 
   private async validateUser(email: string, password: string): Promise<any> {

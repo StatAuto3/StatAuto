@@ -2,9 +2,24 @@ syntax = "proto3";
 
 package pilotes;
 
+import "types/pilote.type.proto";
+import "types/participation.type.proto";
+
 service PilotesService {
   rpc GetPilotes(GetPilotesRequest) returns (GetPilotesResponse);
+  rpc GetPiloteById(GetPiloteByIdRequest) returns (GetPiloteByIdResponse);
+  rpc CreatePilote(CreatePiloteRequest) returns (CreatePiloteResponse);
+  rpc UpdatePilote(UpdatePiloteRequest) returns (UpdatePiloteResponse);
+  rpc DeletePilote(DeletePiloteRequest) returns (DeletePiloteResponse);
+  rpc GetPilotesByStable(GetPilotesByStableRequest) returns (GetPilotesByStableResponse);
+  rpc InscribePiloteToCourse(InscribePiloteToCourseRequest) returns (InscribePiloteToCourseResponse);
+  rpc GetPiloteInscriptions(GetPiloteInscriptionsRequest) returns (GetPiloteInscriptionsResponse);
+  rpc GetCourseParticipants(GetCourseParticipantsRequest) returns (GetCourseParticipantsResponse);
+  rpc DesinscribePiloteFromCourse(DesinscribePiloteFromCourseRequest) returns (DesinscribePiloteFromCourseResponse);
+  rpc GetMyPilotesInscriptions(GetMyPilotesInscriptionsRequest) returns (GetMyPilotesInscriptionsResponse);
 }
+
+// === MESSAGES POUR LES PILOTES ===
 
 message GetPilotesRequest {
   string query = 1;
@@ -13,5 +28,130 @@ message GetPilotesRequest {
 }
 
 message GetPilotesResponse {
-  repeated string pilotes = 1;
+  repeated pilote_type.PiloteType pilotes = 1;
+  int32 total = 2;
+}
+
+message GetPiloteByIdRequest {
+  string id = 1;
+}
+
+message GetPiloteByIdResponse {
+  pilote_type.PiloteType pilote = 1;
+}
+
+message CreatePiloteRequest {
+  string name = 1;
+  int32 age = 2;
+  string gender = 3;
+  double best_chrono_time = 4;
+  int32 pilote_number = 5;
+}
+
+message CreatePiloteResponse {
+  pilote_type.PiloteType pilote = 1;
+  string message = 2;
+}
+
+message UpdatePiloteRequest {
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+  string gender = 4;
+  double best_chrono_time = 5;
+  int32 pilote_number = 6;
+  int32 points = 7;
+}
+
+message UpdatePiloteResponse {
+  pilote_type.PiloteType pilote = 1;
+  string message = 2;
+}
+
+message DeletePiloteRequest {
+  string id = 1;
+}
+
+message DeletePiloteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetPilotesByStableRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message GetPilotesByStableResponse {
+  repeated pilote_type.PiloteType pilotes = 1;
+  int32 total = 2;
+}
+
+// === MESSAGES POUR LES INSCRIPTIONS ===
+
+message InscribePiloteToCourseRequest {
+  string pilote_id = 1;
+  string course_id = 2;
+}
+
+message InscribePiloteToCourseResponse {
+  participation_type.ParticipationType participation = 1;
+  string message = 2;
+}
+
+message GetPiloteInscriptionsRequest {
+  string pilote_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetPiloteInscriptionsResponse {
+  repeated participation_type.ParticipationType inscriptions = 1;
+  int32 total = 2;
+  PiloteInfo pilote = 3;
+}
+
+message PiloteInfo {
+  string id = 1;
+  string name = 2;
+  int32 pilote_number = 3;
+}
+
+message GetCourseParticipantsRequest {
+  string course_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetCourseParticipantsResponse {
+  repeated participation_type.ParticipationType participants = 1;
+  int32 total = 2;
+  CourseInfo course = 3;
+}
+
+message CourseInfo {
+  string id = 1;
+  string name = 2;
+  string date = 3;
+  int32 nb_tours = 4;
+}
+
+message DesinscribePiloteFromCourseRequest {
+  string pilote_id = 1;
+  string course_id = 2;
+}
+
+message DesinscribePiloteFromCourseResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetMyPilotesInscriptionsRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message GetMyPilotesInscriptionsResponse {
+  repeated participation_type.ParticipationType inscriptions = 1;
+  int32 total = 2;
 }

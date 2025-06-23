@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package stables;
 
-import "../types/stable.type.proto";
+import "types/stable.type.proto";
 
 service StablesService {
   rpc GetStables(Empty) returns (GetStablesResponse);

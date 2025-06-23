@@ -126,14 +126,15 @@ exports.Prisma.StableScalarFieldEnum = {
   image_cover: 'image_cover',
   name: 'name',
   location: 'location',
-  email: 'email',
-  password: 'password',
   pilotes: 'pilotes',
   how_many_tournaments: 'how_many_tournaments',
   how_many_wins: 'how_many_wins',
   how_many_losses: 'how_many_losses',
+  total_points: 'total_points',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  email: 'email',
+  password: 'password'
 };
 
 exports.Prisma.PiloteScalarFieldEnum = {

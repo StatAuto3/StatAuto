@@ -10,7 +10,7 @@ import { PrismaService } from './prisma/prisma.service';
     PrismaModule,
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET || 'your-fallback-secret-key-123',
       signOptions: { expiresIn: '24h' },
     }),
   ],

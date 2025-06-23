@@ -5,19 +5,24 @@ import {
   Param,
   Post,
   Put,
+  Patch,
   Delete,
   Query,
   UseGuards,
   Headers,
+  Injectable,
+  CanActivate,
+  ExecutionContext,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { firstValueFrom } from 'rxjs';
 import { LoginRequest, RegisterRequest } from '../types/auth.type';
 
 // Un guard simple pour vérifier l'authentification dans le gateway
-class AuthGuard {
-  canActivate(context: any): boolean {
-    const request = context.getRequest();
+@Injectable()
+class AuthGuard implements CanActivate {
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest();
     const authHeader = request.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return false;
@@ -46,8 +51,18 @@ export class AppController {
   }
 
   @Get('stable/:id')
-  async getStableById(@Param('id') id: string) {
-    return firstValueFrom(this.appService.getStableById(id));
+  @UseGuards(AuthGuard)
+  async getStableById(
+    @Param('id') id: string,
+    @Headers('authorization') authorization?: string,
+  ) {
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+      throw new Error(
+        "Token d'authentification requis pour voir les détails de cette écurie",
+      );
+    }
+
+    return firstValueFrom(this.appService.getStableById(id, authorization));
   }
 
   // === ENDPOINTS ÉCURIES SÉCURISÉS ===
@@ -55,6 +70,32 @@ export class AppController {
   @Put('stable/:id')
   @UseGuards(AuthGuard)
   async updateStable(
+    @Param('id') id: string,
+    @Body()
+    body: {
+      name?: string;
+      location?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+      image_cover?: string;
+    },
+    @Headers('authorization') authorization?: string,
+  ) {
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+      throw new Error(
+        "Token d'authentification requis pour modifier votre écurie",
+      );
+    }
+
+    return firstValueFrom(
+      this.appService.updateStable({ ...body, id }, authorization),
+    );
+  }
+
+  @Patch('stable/:id')
+  @UseGuards(AuthGuard)
+  async patchStable(
     @Param('id') id: string,
     @Body()
     body: {
