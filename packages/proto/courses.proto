@@ -3,8 +3,6 @@ syntax = "proto3";
 package courses;
 
 import "google/protobuf/timestamp.proto";
-import "types/course.type.proto";
-import "types/participation.type.proto";
 
 service CoursesService {
   rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
@@ -15,18 +13,38 @@ service CoursesService {
   rpc GetCourseResults(GetCourseResultsRequest) returns (GetCourseResultsResponse);
 }
 
+// Types simplifiés pour éviter les problèmes d'imports
+message Course {
+  string id = 1;
+  string name = 2;
+  string image = 3;
+  google.protobuf.Timestamp date = 4;
+  int32 nb_tours = 5;
+}
+
+message Participation {
+  string id = 1;
+  string piloteId = 2;
+  string courseId = 3;
+  int32 chrono = 4;
+  int32 position = 5;
+  int32 points = 6;
+  google.protobuf.Timestamp createdAt = 7;
+  google.protobuf.Timestamp updatedAt = 8;
+}
+
 message GetCoursesRequest {
-  optional string query = 1;
-  optional int32 limit = 2;
-  optional int32 offset = 3;
-  optional string sort_by = 4;
-  optional string sort_order = 5;
-  optional google.protobuf.Timestamp date_from = 6;
-  optional google.protobuf.Timestamp date_to = 7;
+  string query = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  string sort_by = 4;
+  string sort_order = 5;
+  google.protobuf.Timestamp date_from = 6;
+  google.protobuf.Timestamp date_to = 7;
 }
 
 message GetCoursesResponse {
-  repeated course_type.CourseType courses = 1;
+  repeated Course courses = 1;
   int32 total = 2;
 }
 
@@ -35,31 +53,31 @@ message GetCourseByIdRequest {
 }
 
 message GetCourseByIdResponse {
-  course_type.CourseType course = 1;
+  Course course = 1;
 }
 
 message CreateCourseRequest {
   string name = 1;
-  optional string image = 2;
+  string image = 2;
   google.protobuf.Timestamp date = 3;
   int32 nb_tours = 4;
 }
 
 message CreateCourseResponse {
-  course_type.CourseType course = 1;
+  Course course = 1;
   string message = 2;
 }
 
 message UpdateCourseRequest {
   string id = 1;
-  optional string name = 2;
-  optional string image = 3;
-  optional google.protobuf.Timestamp date = 4;
-  optional int32 nb_tours = 5;
+  string name = 2;
+  string image = 3;
+  google.protobuf.Timestamp date = 4;
+  int32 nb_tours = 5;
 }
 
 message UpdateCourseResponse {
-  course_type.CourseType course = 1;
+  Course course = 1;
   string message = 2;
 }
 
@@ -74,11 +92,11 @@ message DeleteCourseResponse {
 
 message GetCourseResultsRequest {
   string course_id = 1;
-  optional int32 limit = 2;
-  optional int32 offset = 3;
+  int32 limit = 2;
+  int32 offset = 3;
 }
 
 message GetCourseResultsResponse {
-  repeated participation_type.ParticipationType results = 1;
+  repeated Participation results = 1;
   int32 total_participants = 2;
 }

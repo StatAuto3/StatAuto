@@ -180,10 +180,13 @@ export interface GetMyPilotesInscriptionsResponse {
 }
 
 interface StablesService {
-  GetStables(data: { query: string }): Observable<GetStablesResponse>;
+  GetStables(
+    data: { query: string },
+    metadata?: Metadata,
+  ): Observable<GetStablesResponse>;
   GetStableById(
     data: { id: string },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetStableByIdResponse>;
   UpdateStable(
     data: {
@@ -195,11 +198,11 @@ interface StablesService {
       image?: string;
       image_cover?: string;
     },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<UpdateStableResponse>;
   DeleteStable(
     data: { id: string },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<DeleteStableResponse>;
 }
 
@@ -209,18 +212,21 @@ interface AuthenticationService {
 }
 
 interface CoursesService {
-  GetCourses(): Observable<GetCoursesResponse>;
-  GetCourseById(data: { id: string }): Observable<GetCourseByIdResponse>;
+  GetCourses(metadata?: Metadata): Observable<GetCoursesResponse>;
+  GetCourseById(
+    data: { id: string },
+    metadata?: Metadata,
+  ): Observable<GetCourseByIdResponse>;
 }
 
 interface PilotesService {
   GetPilotes(
     data: { query?: string; limit?: number; offset?: number },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetPilotesResponse>;
   GetPiloteById(
     data: { id: string },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetPiloteByIdResponse>;
   CreatePilote(
     data: {
@@ -230,7 +236,7 @@ interface PilotesService {
       best_chrono_time: number;
       pilote_number: number;
     },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<CreatePiloteResponse>;
   UpdatePilote(
     data: {
@@ -242,37 +248,37 @@ interface PilotesService {
       pilote_number?: number;
       points?: number;
     },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<UpdatePiloteResponse>;
   DeletePilote(
     data: { id: string },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<DeletePiloteResponse>;
   GetPilotesByStable(
     data: { limit?: number; offset?: number },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetPilotesByStableResponse>;
 
   // Méthodes d'inscription
   InscribePiloteToCourse(
     data: { pilote_id: string; course_id: string },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<InscribePiloteToCourseResponse>;
   GetPiloteInscriptions(
     data: { pilote_id: string; limit?: number; offset?: number },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetPiloteInscriptionsResponse>;
   GetCourseParticipants(
     data: { course_id: string; limit?: number; offset?: number },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetCourseParticipantsResponse>;
   DesinscribePiloteFromCourse(
     data: { pilote_id: string; course_id: string },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<DesinscribePiloteFromCourseResponse>;
   GetMyPilotesInscriptions(
     data: { limit?: number; offset?: number },
-    metadata?: any,
+    metadata?: Metadata,
   ): Observable<GetMyPilotesInscriptionsResponse>;
 }
 
@@ -328,14 +334,6 @@ export class AppService {
 
   login(body: LoginRequest): Observable<LoginResponse> {
     return this.authenticationService.Login(body);
-  }
-
-  getCourses(): Observable<GetCoursesResponse> {
-    return this.coursesService.GetCourses();
-  }
-
-  getCourseById(id: string): Observable<GetCourseByIdResponse> {
-    return this.coursesService.GetCourseById({ id });
   }
 
   // === MÉTHODES ÉCURIES SÉCURISÉES ===
@@ -431,59 +429,18 @@ export class AppService {
     return this.pilotesService.DeletePilote({ id }, metadata);
   }
 
-  getPilotesByStable(
-    data: { limit?: number; offset?: number },
-    authorization: string,
-  ): Observable<GetPilotesByStableResponse> {
+  getCourses(authorization: string): Observable<GetCoursesResponse> {
     const metadata = new Metadata();
     metadata.set('authorization', authorization);
-    return this.pilotesService.GetPilotesByStable(data, metadata);
+    return this.coursesService.GetCourses(metadata);
   }
 
-  // === MÉTHODES D'INSCRIPTION AUX COURSES SÉCURISÉES ===
-
-  inscribePiloteToCourse(
-    data: { pilote_id: string; course_id: string },
+  getCourseById(
     authorization: string,
-  ): Observable<InscribePiloteToCourseResponse> {
+    id: string,
+  ): Observable<GetCourseByIdResponse> {
     const metadata = new Metadata();
     metadata.set('authorization', authorization);
-    return this.pilotesService.InscribePiloteToCourse(data, metadata);
-  }
-
-  getPiloteInscriptions(
-    data: { pilote_id: string; limit?: number; offset?: number },
-    authorization: string,
-  ): Observable<GetPiloteInscriptionsResponse> {
-    const metadata = new Metadata();
-    metadata.set('authorization', authorization);
-    return this.pilotesService.GetPiloteInscriptions(data, metadata);
-  }
-
-  getCourseParticipants(
-    data: { course_id: string; limit?: number; offset?: number },
-    authorization: string,
-  ): Observable<GetCourseParticipantsResponse> {
-    const metadata = new Metadata();
-    metadata.set('authorization', authorization);
-    return this.pilotesService.GetCourseParticipants(data, metadata);
-  }
-
-  desinscribePiloteFromCourse(
-    data: { pilote_id: string; course_id: string },
-    authorization: string,
-  ): Observable<DesinscribePiloteFromCourseResponse> {
-    const metadata = new Metadata();
-    metadata.set('authorization', authorization);
-    return this.pilotesService.DesinscribePiloteFromCourse(data, metadata);
-  }
-
-  getMyPilotesInscriptions(
-    data: { limit?: number; offset?: number },
-    authorization: string,
-  ): Observable<GetMyPilotesInscriptionsResponse> {
-    const metadata = new Metadata();
-    metadata.set('authorization', authorization);
-    return this.pilotesService.GetMyPilotesInscriptions(data, metadata);
+    return this.coursesService.GetCourseById({ id }, metadata);
   }
 }
