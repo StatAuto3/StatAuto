@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package participation_type;
 
-import "packages/proto/types/pilote.type.proto";
-import "packages/proto/types/course.type.proto";
+import "../types/pilote.type.proto";
+import "../types/course.type.proto";
 import "google/protobuf/timestamp.proto";
 
 message ParticipationType {

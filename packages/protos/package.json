@@ -5,6 +5,6 @@
   "description": "Protocol Buffers definitions",
   "main": "index.js",
   "files": [
-    "*.proto"
+    "../**/*.proto"
   ]
 }

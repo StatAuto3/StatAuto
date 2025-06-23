@@ -3,8 +3,8 @@ syntax = "proto3";
 package courses;
 
 import "google/protobuf/timestamp.proto";
-import "packages/types/course.type.proto";
-import "packages/types/participation.type.proto";
+import "../types/course.type.proto";
+import "../types/participation.type.proto";
 
 service CoursesService {
   rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
