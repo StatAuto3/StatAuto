@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.10.1
+ * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.10.1",
+  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -170,7 +170,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/graig/Documents/cours/StatAuto/apps/courses/generated/prisma",
+      "value": "C:\\Users\\Graig\\Desktop\\project_perso\\StatAuto\\apps\\courses\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -179,12 +179,20 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/graig/Documents/cours/StatAuto/apps/courses/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Graig\\Desktop\\project_perso\\StatAuto\\apps\\courses\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -192,13 +200,13 @@ const config = {
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
-  "clientVersion": "6.8.2",
-  "engineVersion": "2060c79ba17c6bb9f5823312b6f6b7f4a845738e",
+  "clientVersion": "6.10.1",
+  "engineVersion": "9b628578b3b7cae625e8c927178f15a170e74a9c",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": true,
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -207,8 +215,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Stable {\n  id                   String   @id @default(uuid())\n  image                String?\n  image_cover          String?\n  name                 String\n  location             String\n  pilotes              Int      @default(0)\n  pilote               Pilote[]\n  how_many_tournaments Int      @default(0)\n  how_many_wins        Int      @default(0)\n  how_many_losses      Int      @default(0)\n  total_points         Int      @default(0) @ignore\n  createdAt            DateTime @default(now())\n  updatedAt            DateTime @updatedAt\n}\n\nmodel Pilote {\n  id               String          @id @default(uuid())\n  name             String\n  stableId         String\n  age              Int\n  gender           String\n  best_chrono_time Int\n  courses          Participation[]\n  pilote_number    Int\n  points           Int             @default(0)\n  Stable           Stable          @relation(fields: [stableId], references: [id])\n}\n\nmodel Course {\n  id           String          @id @default(uuid())\n  name         String\n  image        String?\n  date         DateTime\n  nb_tours     Int\n  participants Participation[]\n}\n\nmodel Participation {\n  id        String   @id @default(uuid())\n  piloteId  String\n  courseId  String\n  chrono    Int?\n  position  Int?\n  points    Int      @default(0)\n  pilote    Pilote   @relation(fields: [piloteId], references: [id])\n  course    Course   @relation(fields: [courseId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([piloteId, courseId])\n}\n",
-  "inlineSchemaHash": "6e96efd89fb7f5f86a6ff8bccda99e4ac910a72d59d717e46018bdaaca0909a6",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\", \"linux-musl\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Stable {\n  id                   String   @id @default(uuid())\n  image                String?\n  image_cover          String?\n  name                 String\n  location             String\n  pilotes              Int      @default(0)\n  pilote               Pilote[]\n  how_many_tournaments Int      @default(0)\n  how_many_wins        Int      @default(0)\n  how_many_losses      Int      @default(0)\n  total_points         Int      @default(0) @ignore\n  createdAt            DateTime @default(now())\n  updatedAt            DateTime @updatedAt\n}\n\nmodel Pilote {\n  id               String          @id @default(uuid())\n  name             String\n  stableId         String\n  age              Int\n  gender           String\n  best_chrono_time Int\n  courses          Participation[]\n  pilote_number    Int\n  points           Int             @default(0)\n  Stable           Stable          @relation(fields: [stableId], references: [id])\n}\n\nmodel Course {\n  id           String          @id @default(uuid())\n  name         String\n  image        String?\n  date         DateTime\n  nb_tours     Int\n  participants Participation[]\n}\n\nmodel Participation {\n  id        String   @id @default(uuid())\n  piloteId  String\n  courseId  String\n  chrono    Int?\n  position  Int?\n  points    Int      @default(0)\n  pilote    Pilote   @relation(fields: [piloteId], references: [id])\n  course    Course   @relation(fields: [courseId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([piloteId, courseId])\n}\n",
+  "inlineSchemaHash": "0d3279bae8eb5fc7d3ba09c80baccb2086d07b8419e58e534d188cc5f0012625",
   "copyEngine": true
 }
 
@@ -247,8 +255,16 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-linux-musl-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-linux-musl.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

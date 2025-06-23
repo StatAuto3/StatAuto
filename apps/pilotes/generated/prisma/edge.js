@@ -172,7 +172,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/graig/Documents/cours/StatAuto/apps/pilotes/generated/prisma",
+      "value": "C:\\Users\\Graig\\Desktop\\project_perso\\StatAuto\\apps\\pilotes\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -181,16 +181,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/graig/Documents/cours/StatAuto/apps/pilotes/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Graig\\Desktop\\project_perso\\StatAuto\\apps\\pilotes\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
