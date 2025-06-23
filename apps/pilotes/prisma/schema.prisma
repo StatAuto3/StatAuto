@@ -22,7 +22,7 @@ model Stable {
   how_many_tournaments Int      @default(0)
   how_many_wins        Int      @default(0)
   how_many_losses      Int      @default(0)
-  total_points         Int      @default(0) @ignore
+  total_points         Int      @default(0)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 }

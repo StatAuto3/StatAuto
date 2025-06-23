@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.10.1
+ * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.10.1",
+  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -126,15 +126,15 @@ exports.Prisma.StableScalarFieldEnum = {
   image_cover: 'image_cover',
   name: 'name',
   location: 'location',
-  email: 'email',
-  password: 'password',
   pilotes: 'pilotes',
   how_many_tournaments: 'how_many_tournaments',
   how_many_wins: 'how_many_wins',
   how_many_losses: 'how_many_losses',
   total_points: 'total_points',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  email: 'email',
+  password: 'password'
 };
 
 exports.Prisma.PiloteScalarFieldEnum = {

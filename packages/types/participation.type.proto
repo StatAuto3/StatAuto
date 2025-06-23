@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package participation_type;
+
+import "types/pilote.type.proto";
+import "types/course.type.proto";
+import "google/protobuf/timestamp.proto";
+
+message ParticipationType {
+  string id = 1;
+  string piloteId = 2;
+  string courseId = 3;
+  int32 chrono = 4;
+  int32 position = 5;
+  int32 points = 6;
+  pilote_type.PiloteType pilote = 7;
+  course_type.CourseType course = 8;
+  google.protobuf.Timestamp createdAt = 9;
+  google.protobuf.Timestamp updatedAt = 10;
+}
