@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @GrpcMethod('StablesService', 'GetStables')
-  async getStables(data: { query: string }) {
+  async getStables() {
     const stables = await this.appService.getStables();
 
     return {

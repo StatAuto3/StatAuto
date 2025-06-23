@@ -1,5 +1,17 @@
 syntax = "proto3";
 
-package statauto;
+package pilotes;
 
-service PilotesService {}
+service PilotesService {
+  rpc GetPilotes(GetPilotesRequest) returns (GetPilotesResponse);
+}
+
+message GetPilotesRequest {
+  string query = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetPilotesResponse {
+  repeated string pilotes = 1;
+}

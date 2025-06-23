@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@statauto/*": [
-        "../../../packages/proto/*"
+        ""
       ]
     }
   }

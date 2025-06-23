@@ -1,15 +1,18 @@
 syntax = "proto3";
 
-package statauto;
+package stables;
 
-import "packages/proto/types/stable.type.proto";
+import "packages/types/stable.type.proto";
 
 service StablesService {
-  rpc GetStables(GetStablesRequest) returns (GetStablesResponse);
+  rpc GetStables(Empty) returns (GetStablesResponse);
   rpc GetStableById(GetStableByIdRequest) returns (GetStableByIdResponse);
   rpc DeleteStable(DeleteStableRequest) returns (DeleteStableResponse);
   rpc UpdateStable(UpdateStableRequest) returns (UpdateStableResponse);
 }
+
+
+message Empty {}
 
 message GetStableByIdRequest {
   string id = 1;

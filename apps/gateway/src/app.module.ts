@@ -11,18 +11,16 @@ import { AppService } from './app.service';
         name: 'STABLES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'stables:5003',
-          package: 'statauto',
-          protoPath: join(
-            __dirname,
-            '../../../packages/proto/stat-auto-complete.proto',
-          ),
+          url: 'localhost:5003',
+          package: 'stables',
+          protoPath: join(__dirname, '../../../packages/proto/stables.proto'),
           loader: {
             keepCase: true,
             longs: String,
             enums: String,
             defaults: true,
             oneofs: true,
+            includeDirs: [join(__dirname, '../../../packages')],
           },
         },
       },
@@ -30,11 +28,11 @@ import { AppService } from './app.service';
         name: 'AUTHENTICATION_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'authentication:5004',
-          package: 'statauto',
+          url: 'localhost:5001',
+          package: 'authentication',
           protoPath: join(
             __dirname,
-            '../../../packages/proto/stat-auto-complete.proto',
+            '../../../packages/proto/authentication.proto',
           ),
           loader: {
             keepCase: true,
@@ -49,12 +47,9 @@ import { AppService } from './app.service';
         name: 'COURSES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'courses:5002',
-          package: 'statauto',
-          protoPath: join(
-            __dirname,
-            '../../../packages/proto/stat-auto-complete.proto',
-          ),
+          url: 'localhost:5002',
+          package: 'courses',
+          protoPath: join(__dirname, '../../../packages/proto/courses.proto'),
           loader: {
             keepCase: true,
             longs: String,
@@ -68,12 +63,9 @@ import { AppService } from './app.service';
         name: 'PILOTES_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'pilotes:5001',
-          package: 'statauto',
-          protoPath: join(
-            __dirname,
-            '../../../packages/proto/stat-auto-complete.proto',
-          ),
+          url: 'localhost:5001',
+          package: 'pilotes',
+          protoPath: join(__dirname, '../../../packages/proto/pilotes.proto'),
           loader: {
             keepCase: true,
             longs: String,
@@ -87,11 +79,11 @@ import { AppService } from './app.service';
         name: 'TOURNAMENTS_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: 'tournaments:5005',
-          package: 'statauto',
+          url: 'localhost:5005',
+          package: 'tournaments',
           protoPath: join(
             __dirname,
-            '../../../packages/proto/stat-auto-complete.proto',
+            '../../../packages/proto/tournaments.proto',
           ),
           loader: {
             keepCase: true,

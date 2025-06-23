@@ -6,7 +6,7 @@
     "webpack": true,
     "assets": [
       {
-        "include": "proto/*.proto",
+        "include": "../../../packages/proto/*.proto",
         "outDir": "dist/proto"
       }
     ],

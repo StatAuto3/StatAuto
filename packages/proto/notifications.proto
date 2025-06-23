@@ -1,5 +1,15 @@
 syntax = "proto3";
 
-package statauto;
+package notifications;
 
-service NotificationsService {}
+service NotificationsService {
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+}
+
+message GetNotificationsRequest {
+  string user_id = 1;
+}
+
+message GetNotificationsResponse {
+  repeated string notifications = 1;
+}
