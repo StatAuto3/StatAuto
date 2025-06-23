@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  authentication:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: authentication
+      no_cache: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres?schema=auth
+      - PROTO_PATH=/app/proto/stat-auto-complete.proto
+
+  gateway:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: gateway
+      no_cache: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3001:3001"
+    depends_on:
+      - authentication
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+      target: ${NODE_ENV:-development}
+      no_cache: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3002:3002"
+    depends_on:
+      - gateway
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+  stables:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: stables
+      no_cache: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3003:3003"
+    depends_on:
+      - authentication
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+  courses:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: courses
+      no_cache: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3004:3004"
+    depends_on:
+      - authentication
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+  pilotes:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: pilotes
+      no_cache: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3005:3005"
+    depends_on:
+      - authentication
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+
+networks:
+  default:
+    driver: bridge

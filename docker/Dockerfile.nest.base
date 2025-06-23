@@ -1,0 +1,77 @@
+# 1. Base image pour tous les stages
+FROM node:20-alpine3.18 AS base
+
+RUN apk add --no-cache bash openssl1.1-compat && corepack enable && corepack prepare pnpm@8.6.12 --activate
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages ./packages
+COPY apps ./apps
+
+# Install dependencies at workspace level
+RUN pnpm install
+
+# 2. Development stage
+FROM base AS development
+
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+# Create proto directory and copy proto file
+RUN mkdir -p apps/${SERVICE_NAME}/proto && \
+    cp /app/packages/proto/stat-auto-complete.proto ./apps/${SERVICE_NAME}/proto/ && \
+    chmod 644 ./apps/${SERVICE_NAME}/proto/stat-auto-complete.proto
+
+# Generate Prisma client only if prisma directory exists
+RUN if [ -d "apps/${SERVICE_NAME}/prisma" ]; then \
+    rm -rf apps/${SERVICE_NAME}/generated/prisma && \
+    pnpm --filter ${SERVICE_NAME} exec prisma generate --schema=./prisma/schema.prisma; \
+    fi
+
+CMD ["sh", "-c", "pnpm --prefix apps/${SERVICE_NAME} start:dev"]
+
+# 3. Builder stage
+FROM base AS builder
+
+ARG SERVICE_NAME
+
+# Create proto directory and copy proto file
+RUN mkdir -p apps/${SERVICE_NAME}/proto && \
+    cp /app/packages/proto/stat-auto-complete.proto ./apps/${SERVICE_NAME}/proto/ && \
+    chmod 644 ./apps/${SERVICE_NAME}/proto/stat-auto-complete.proto
+
+# Generate Prisma client only if prisma directory exists
+RUN if [ -d "apps/${SERVICE_NAME}/prisma" ]; then \
+    rm -rf apps/${SERVICE_NAME}/generated/prisma && \
+    pnpm --filter ${SERVICE_NAME} exec prisma generate --schema=./prisma/schema.prisma; \
+    fi
+
+RUN pnpm --filter ${SERVICE_NAME} build
+
+# 4. Production stage
+FROM node:20-alpine AS production
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+ARG SERVICE_NAME
+
+WORKDIR /app
+
+# Copy dist and runtime deps
+COPY --from=builder /app/apps/${SERVICE_NAME}/dist ./dist
+COPY --from=builder /app/apps/${SERVICE_NAME}/package.json ./
+COPY --from=builder /app/apps/${SERVICE_NAME}/generated ./generated
+COPY --from=builder /app/apps/${SERVICE_NAME}/prisma ./prisma
+COPY --from=builder /app/apps/${SERVICE_NAME}/proto ./proto
+
+# Install production dependencies and generate Prisma client
+RUN pnpm install --prod && \
+    if [ -d "prisma" ]; then \
+    rm -rf generated/prisma && \
+    pnpm prisma generate --schema=./prisma/schema.prisma; \
+    fi
+
+EXPOSE 3000
+
+CMD ["node", "dist/main"]
