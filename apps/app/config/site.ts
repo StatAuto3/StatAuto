@@ -26,6 +26,10 @@ export const siteConfig = {
       label: "Register",
       href: "/register",
       color: 'primary',
+    },
+    logout: {
+      label: "Logout",
+      href: "#",
     }
   },
   links: {

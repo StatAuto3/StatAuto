@@ -1,0 +1,16 @@
+export type Stables = {
+    "pilote": [],
+    "id": string,
+    "name": string,
+    "location": string,
+    "pilotes": number,
+    "how_many_tournaments": number,
+    "how_many_wins": number,
+    "how_many_losses": number,
+    "image": string,
+    "_image": string,
+    "image_cover": string,
+    "_image_cover": string,
+    "total_points": number,
+    "_total_points": string,
+}

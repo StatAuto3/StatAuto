@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -25,8 +27,11 @@ import {
   SearchIcon,
   Logo,
 } from "@/components/icons";
+import { useUser } from "@/app/contexts/UserContext.provider";
 
 export const Navbar = () => {
+  const { user, logout } = useUser();
+
   const searchInput = (
     <Input
       aria-label="Search"
@@ -81,24 +86,34 @@ export const Navbar = () => {
         <ThemeSwitch className="hidden lg:flex" />
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden lg:flex">
-          <ButtonGroup>
-            <Button
-              className="text-sm font-normal text-default-600 bg-default-100"
-              href={siteConfig.auth.login.href}
-              as={NextLink}
-              variant="flat"
-            >
-              {siteConfig.auth.login.label}
-            </Button>
-            <Button
-              color="primary"
-              href={siteConfig.auth.register.href}
-              as={NextLink}
-              variant="flat"
-            >
-              {siteConfig.auth.register.label}
-            </Button>
-          </ButtonGroup>
+          {
+            user ? <Button
+                  className="text-sm font-normal text-default-600 bg-red-300"
+                  variant="flat"
+                >
+                  {siteConfig.auth.logout.label}
+                </Button>
+            : (
+              <ButtonGroup>
+                <Button
+                  className="text-sm font-normal text-default-600 bg-default-100"
+                  href={siteConfig.auth.login.href}
+                  as={NextLink}
+                  variant="flat"
+                >
+                  {siteConfig.auth.login.label}
+                </Button>
+                <Button
+                  color="primary"
+                  href={siteConfig.auth.register.href}
+                  as={NextLink}
+                  variant="flat"
+                >
+                  {siteConfig.auth.register.label}
+                </Button>
+              </ButtonGroup>
+            )
+          }
         </NavbarItem>
       </NavbarContent>
 
