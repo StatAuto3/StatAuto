@@ -230,166 +230,22 @@ export class AppController {
     return firstValueFrom(this.appService.deletePilote(id, authorization));
   }
 
-  @Get('my-pilotes')
+  @Get('courses')
   @UseGuards(AuthGuard)
-  async getMyPilotes(
-    @Query('limit') limit?: string,
-    @Query('offset') offset?: string,
-    @Headers('authorization') authorization?: string,
-  ) {
+  async getCourses(@Headers('authorization') authorization?: string) {
     if (!authorization || !authorization.startsWith('Bearer ')) {
       throw new Error("Token d'authentification requis");
     }
 
-    return firstValueFrom(
-      this.appService.getPilotesByStable(
-        {
-          limit: limit ? parseInt(limit) : undefined,
-          offset: offset ? parseInt(offset) : undefined,
-        },
-        authorization,
-      ),
-    );
+    return firstValueFrom(this.appService.getCourses(authorization));
   }
 
-  // === ENDPOINTS D'INSCRIPTION AUX COURSES SÉCURISÉS ===
-
-  @Post('pilote/:piloteId/inscribe/:courseId')
+  @Get('course/:id')
   @UseGuards(AuthGuard)
-  async inscribePiloteToCourse(
-    @Param('piloteId') piloteId: string,
-    @Param('courseId') courseId: string,
-    @Headers('authorization') authorization?: string,
-  ) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new Error(
-        "Token d'authentification requis pour inscrire un pilote",
-      );
-    }
-
-    return firstValueFrom(
-      this.appService.inscribePiloteToCourse(
-        {
-          pilote_id: piloteId,
-          course_id: courseId,
-        },
-        authorization,
-      ),
-    );
-  }
-
-  @Post('inscribe-pilote')
-  @UseGuards(AuthGuard)
-  async inscribePiloteToCorseBody(
-    @Body()
-    body: {
-      pilote_id: string;
-      course_id: string;
-    },
-    @Headers('authorization') authorization?: string,
-  ) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new Error(
-        "Token d'authentification requis pour inscrire un pilote",
-      );
-    }
-
-    return firstValueFrom(
-      this.appService.inscribePiloteToCourse(body, authorization),
-    );
-  }
-
-  @Get('pilote/:id/inscriptions')
-  @UseGuards(AuthGuard)
-  async getPiloteInscriptions(
+  async getCourseById(
     @Param('id') id: string,
-    @Query('limit') limit?: string,
-    @Query('offset') offset?: string,
     @Headers('authorization') authorization?: string,
   ) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new Error("Token d'authentification requis");
-    }
-
-    return firstValueFrom(
-      this.appService.getPiloteInscriptions(
-        {
-          pilote_id: id,
-          limit: limit ? parseInt(limit) : undefined,
-          offset: offset ? parseInt(offset) : undefined,
-        },
-        authorization,
-      ),
-    );
-  }
-
-  @Get('course/:id/participants')
-  @UseGuards(AuthGuard)
-  async getCourseParticipants(
-    @Param('id') id: string,
-    @Query('limit') limit?: string,
-    @Query('offset') offset?: string,
-    @Headers('authorization') authorization?: string,
-  ) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new Error("Token d'authentification requis");
-    }
-
-    return firstValueFrom(
-      this.appService.getCourseParticipants(
-        {
-          course_id: id,
-          limit: limit ? parseInt(limit) : undefined,
-          offset: offset ? parseInt(offset) : undefined,
-        },
-        authorization,
-      ),
-    );
-  }
-
-  @Delete('pilote/:piloteId/desinscribe/:courseId')
-  @UseGuards(AuthGuard)
-  async desinscribePiloteFromCourse(
-    @Param('piloteId') piloteId: string,
-    @Param('courseId') courseId: string,
-    @Headers('authorization') authorization?: string,
-  ) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new Error(
-        "Token d'authentification requis pour désinscrire un pilote",
-      );
-    }
-
-    return firstValueFrom(
-      this.appService.desinscribePiloteFromCourse(
-        {
-          pilote_id: piloteId,
-          course_id: courseId,
-        },
-        authorization,
-      ),
-    );
-  }
-
-  @Get('my-inscriptions')
-  @UseGuards(AuthGuard)
-  async getMyPilotesInscriptions(
-    @Query('limit') limit?: string,
-    @Query('offset') offset?: string,
-    @Headers('authorization') authorization?: string,
-  ) {
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new Error("Token d'authentification requis");
-    }
-
-    return firstValueFrom(
-      this.appService.getMyPilotesInscriptions(
-        {
-          limit: limit ? parseInt(limit) : undefined,
-          offset: offset ? parseInt(offset) : undefined,
-        },
-        authorization,
-      ),
-    );
+    return firstValueFrom(this.appService.getCourseById(authorization, id));
   }
 }
