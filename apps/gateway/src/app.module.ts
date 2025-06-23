@@ -13,7 +13,7 @@ import { AppService } from './app.service';
         options: {
           url: 'stables:5003',
           package: 'statauto',
-          protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+          protoPath: join(__dirname, '../../../packages/proto/stat-auto-complete.proto'),
           loader: {
             keepCase: true,
             longs: String,
@@ -29,7 +29,7 @@ import { AppService } from './app.service';
         options: {
           url: 'authentication:5004',
           package: 'statauto',
-          protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+          protoPath: join(__dirname, '../../../packages/proto/stat-auto-complete.proto'),
           loader: {
             keepCase: true,
             longs: String,
@@ -45,7 +45,7 @@ import { AppService } from './app.service';
         options: {
           url: 'courses:5002',
           package: 'statauto',
-          protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+          protoPath: join(__dirname, '../../../packages/proto/stat-auto-complete.proto'),
           loader: {
             keepCase: true,
             longs: String,
@@ -61,7 +61,7 @@ import { AppService } from './app.service';
         options: {
           url: 'pilotes:5001',
           package: 'statauto',
-          protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+          protoPath: join(__dirname, '../../../packages/proto/stat-auto-complete.proto'),
           loader: {
             keepCase: true,
             longs: String,
@@ -77,7 +77,7 @@ import { AppService } from './app.service';
         options: {
           url: 'tournaments:5005',
           package: 'statauto',
-          protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+          protoPath: join(__dirname, '../../../packages/proto/stat-auto-complete.proto'),
           loader: {
             keepCase: true,
             longs: String,
