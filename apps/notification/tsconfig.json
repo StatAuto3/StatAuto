@@ -1,14 +1,22 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
     "outDir": "./dist",
     "baseUrl": "./src",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@statauto/*": [
+        "../../../packages/proto/*"
+      ]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
