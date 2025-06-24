@@ -33,7 +33,6 @@ services:
       no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=pilotes"
-      PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
     ports:
       - "3003:3000"  # HTTP
       - "5003:5000"  # gRPC
@@ -50,7 +49,6 @@ services:
       no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=auth"
-      PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
     depends_on:
       - postgres
       - redis
@@ -69,7 +67,6 @@ services:
       no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=stables"
-      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
     ports:
       - "3002:3000"  # HTTP
       - "5002:5000"  # gRPC
@@ -88,7 +85,6 @@ services:
       no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=courses"
-      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
     ports:
       - "3004:3000"  # HTTP
       - "5004:5000"  # gRPC
