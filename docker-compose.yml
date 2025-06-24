@@ -28,7 +28,7 @@ services:
         SERVICE_NAME: gateway
       no_cache: true
     ports:
-      - "3001:3000"
+      - "3001:4001"
     depends_on:
       - authentication
     environment:
