@@ -1,5 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  output        = "../generated/prisma"
 }
 
 datasource db {
@@ -7,20 +9,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Job {
-  id          Int      @id @default(autoincrement())
-  name        String
-  status      String
-  scheduledAt DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Stable {
+  id                   String   @id @default(uuid())
+  image                String?
+  image_cover          String?
+  name                 String
+  location             String
+  email                String   @unique
+  password             String
+  pilotes              Int      @default(0)
+  pilote               Pilote[]
+  how_many_tournaments Int      @default(0)
+  how_many_wins        Int      @default(0)
+  how_many_losses      Int      @default(0)
+  total_points         Int      @default(0) @ignore
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 }
 
-model EmailTemplate {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  subject     String
-  body        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Pilote {
+  id               String          @id @default(uuid())
+  name             String
+  stableId         String
+  age              Int
+  gender           String
+  best_chrono_time Int
+  courses          Participation[]
+  pilote_number    Int
+  points           Int             @default(0)
+  Stable           Stable          @relation(fields: [stableId], references: [id])
+}
+
+model Course {
+  id           String          @id @default(uuid())
+  name         String
+  image        String?
+  date         DateTime
+  nb_tours     Int
+  participants Participation[]
+  notified     Boolean         @default(false)
+}
+
+model Participation {
+  id        String   @id @default(uuid())
+  piloteId  String
+  courseId  String
+  chrono    Int?
+  position  Int?
+  points    Int      @default(0)
+  pilote    Pilote   @relation(fields: [piloteId], references: [id])
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([piloteId, courseId])
 }
