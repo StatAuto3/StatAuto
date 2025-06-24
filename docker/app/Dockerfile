@@ -21,12 +21,16 @@ CMD ["pnpm", "dev"]
 FROM base AS builder
 WORKDIR /app
 COPY . .
-RUN pnpm install && pnpm --filter app build
+RUN pnpm install
+WORKDIR /app/apps/app
+RUN pnpm build --no-lint
 
 # Production stage
 FROM node:20-alpine AS production
 WORKDIR /app
-COPY --from=builder /app/apps/app/dist ./dist
+COPY --from=builder /app/apps/app/.next ./.next
+COPY --from=builder /app/apps/app/public ./public
 COPY --from=builder /app/apps/app/package.json .
 RUN corepack enable && corepack prepare pnpm@latest --activate && pnpm install --prod
-CMD ["node", "dist/main.js"] 
+EXPOSE 8080
+CMD ["pnpm", "start"] 
