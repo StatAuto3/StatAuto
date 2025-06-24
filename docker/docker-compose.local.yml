@@ -1,0 +1,127 @@
+services:
+  postgres:
+    container_name: my-project-db
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-project-network
+
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - my-project-network
+
+  pilotes:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: pilotes
+      no_cache: true
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=pilotes"
+    ports:
+      - "3003:3000"  # HTTP
+      - "5003:5000"  # gRPC
+    networks:
+      - my-project-network
+
+  authentication:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: authentication
+      no_cache: true
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=auth"
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "3001:3000"  # HTTP
+      - "5001:5000"  # gRPC
+    networks:
+      - my-project-network
+  stables:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: stables
+      no_cache: true
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=stables"
+    ports:
+      - "3002:3000"  # HTTP
+      - "5002:5000"  # gRPC
+    networks:
+      - my-project-network
+    depends_on:
+      - postgres
+
+  courses:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: courses
+      no_cache: true
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=courses"
+    ports:
+      - "3004:3000"  # HTTP
+      - "5004:5000"  # gRPC
+    networks:
+      - my-project-network
+    depends_on:
+      - postgres
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: docker/gateway/Dockerfile
+    depends_on:
+      - authentication
+      - courses
+      - pilotes
+      - stables
+    ports:
+      - "3005:3000"  # HTTP
+    networks:
+      - my-project-network
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/app/Dockerfile
+    depends_on:
+      - gateway
+    ports:
+      - "3000:3000"  # Frontend
+    networks:
+      - my-project-network
+
+networks:
+  my-project-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis-data:

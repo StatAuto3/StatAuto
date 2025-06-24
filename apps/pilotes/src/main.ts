@@ -1,0 +1,28 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { join } from 'path';
+
+async function bootstrap() {
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.GRPC,
+      options: {
+        package: 'pilotes',
+        protoPath: join(__dirname, '../../../packages/proto/pilotes.proto'),
+        url: '0.0.0.0:5004',
+        loader: {
+          keepCase: true,
+          longs: String,
+          enums: String,
+          defaults: true,
+          oneofs: true,
+          includeDirs: [join(__dirname, '../../../packages')],
+        },
+      },
+    },
+  );
+  await app.listen();
+}
+bootstrap();

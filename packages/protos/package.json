@@ -1,0 +1,10 @@
+{
+  "name": "@my-project/protos",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Protocol Buffers definitions",
+  "main": "index.js",
+  "files": [
+    "../**/*.proto"
+  ]
+}

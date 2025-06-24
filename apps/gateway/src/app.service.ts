@@ -1,0 +1,446 @@
+import { Injectable } from '@nestjs/common';
+import { ClientGrpc } from '@nestjs/microservices';
+import { Inject } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { Metadata } from '@grpc/grpc-js';
+
+export interface Stable {
+  id: string;
+  name: string;
+  location: string;
+  image: string;
+  image_cover: string;
+  email: string;
+  password: string;
+  pilotes: number;
+  pilote: Pilote[];
+  how_many_tournaments: number;
+  how_many_wins: number;
+  how_many_losses: number;
+  total_points: number;
+}
+
+export interface Pilote {
+  id: string;
+  name: string;
+  age: number;
+  gender: string;
+  best_chrono_time: number;
+  pilote_number: number;
+  points: number;
+  stable_id: string;
+  participations: Participation[];
+}
+
+export interface Participation {
+  id: string;
+  piloteId: string;
+  courseId: string;
+  chrono: number;
+  position: number;
+  points: number;
+  createdAt: Date;
+  updatedAt: Date;
+  pilote?: {
+    id: string;
+    name: string;
+    pilote_number: number;
+  };
+  course?: {
+    id: string;
+    name: string;
+    date: Date;
+    image?: string;
+  };
+}
+
+export interface Course {
+  id: string;
+  name: string;
+  image: string;
+  date: Date;
+  nb_tours: number;
+  participants: Participation[];
+}
+
+export interface GetStablesResponse {
+  stables: Stable[];
+}
+
+export interface GetStableByIdResponse {
+  stable: Stable;
+}
+
+export interface RegisterResponse {
+  token: string;
+}
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  name: string;
+  location: string;
+  image?: string;
+  image_cover?: string;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  token: string;
+}
+
+export interface GetCoursesResponse {
+  courses: Course[];
+}
+
+export interface GetCourseByIdResponse {
+  course: Course;
+}
+
+// Interfaces pour les écuries
+export interface UpdateStableResponse {
+  stable: Stable;
+  message: string;
+}
+
+export interface DeleteStableResponse {
+  success: boolean;
+  message: string;
+}
+
+// Interfaces pour les pilotes
+export interface GetPilotesResponse {
+  pilotes: Pilote[];
+  total: number;
+}
+
+export interface GetPiloteByIdResponse {
+  pilote: Pilote;
+}
+
+export interface CreatePiloteResponse {
+  pilote: Pilote;
+  message: string;
+}
+
+export interface UpdatePiloteResponse {
+  pilote: Pilote;
+  message: string;
+}
+
+export interface DeletePiloteResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface GetPilotesByStableResponse {
+  pilotes: Pilote[];
+  total: number;
+}
+
+// Interfaces pour les inscriptions
+export interface InscribePiloteToCourseResponse {
+  participation: Participation;
+  message: string;
+}
+
+export interface GetPiloteInscriptionsResponse {
+  inscriptions: Participation[];
+  total: number;
+  pilote: {
+    id: string;
+    name: string;
+    pilote_number: number;
+  };
+}
+
+export interface GetCourseParticipantsResponse {
+  participants: Participation[];
+  total: number;
+  course: {
+    id: string;
+    name: string;
+    date: Date;
+    nb_tours: number;
+  };
+}
+
+export interface DesinscribePiloteFromCourseResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface GetMyPilotesInscriptionsResponse {
+  inscriptions: Participation[];
+  total: number;
+}
+
+interface StablesService {
+  GetStables(
+    data: { query: string },
+    metadata?: Metadata,
+  ): Observable<GetStablesResponse>;
+  GetStableById(
+    data: { id: string },
+    metadata?: Metadata,
+  ): Observable<GetStableByIdResponse>;
+  UpdateStable(
+    data: {
+      id: string;
+      name?: string;
+      location?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+      image_cover?: string;
+    },
+    metadata?: Metadata,
+  ): Observable<UpdateStableResponse>;
+  DeleteStable(
+    data: { id: string },
+    metadata?: Metadata,
+  ): Observable<DeleteStableResponse>;
+}
+
+interface AuthenticationService {
+  Register(request: RegisterRequest): Observable<RegisterResponse>;
+  Login(request: LoginRequest): Observable<LoginResponse>;
+}
+
+interface CoursesService {
+  GetCourses(metadata?: Metadata): Observable<GetCoursesResponse>;
+  GetCourseById(
+    data: { id: string },
+    metadata?: Metadata,
+  ): Observable<GetCourseByIdResponse>;
+}
+
+interface PilotesService {
+  GetPilotes(
+    data: { query?: string; limit?: number; offset?: number },
+    metadata?: Metadata,
+  ): Observable<GetPilotesResponse>;
+  GetPiloteById(
+    data: { id: string },
+    metadata?: Metadata,
+  ): Observable<GetPiloteByIdResponse>;
+  CreatePilote(
+    data: {
+      name: string;
+      age: number;
+      gender: string;
+      best_chrono_time: number;
+      pilote_number: number;
+    },
+    metadata?: Metadata,
+  ): Observable<CreatePiloteResponse>;
+  UpdatePilote(
+    data: {
+      id: string;
+      name?: string;
+      age?: number;
+      gender?: string;
+      best_chrono_time?: number;
+      pilote_number?: number;
+      points?: number;
+    },
+    metadata?: Metadata,
+  ): Observable<UpdatePiloteResponse>;
+  DeletePilote(
+    data: { id: string },
+    metadata?: Metadata,
+  ): Observable<DeletePiloteResponse>;
+  GetPilotesByStable(
+    data: { limit?: number; offset?: number },
+    metadata?: Metadata,
+  ): Observable<GetPilotesByStableResponse>;
+
+  // Méthodes d'inscription
+  InscribePiloteToCourse(
+    data: { pilote_id: string; course_id: string },
+    metadata?: Metadata,
+  ): Observable<InscribePiloteToCourseResponse>;
+  GetPiloteInscriptions(
+    data: { pilote_id: string; limit?: number; offset?: number },
+    metadata?: Metadata,
+  ): Observable<GetPiloteInscriptionsResponse>;
+  GetCourseParticipants(
+    data: { course_id: string; limit?: number; offset?: number },
+    metadata?: Metadata,
+  ): Observable<GetCourseParticipantsResponse>;
+  DesinscribePiloteFromCourse(
+    data: { pilote_id: string; course_id: string },
+    metadata?: Metadata,
+  ): Observable<DesinscribePiloteFromCourseResponse>;
+  GetMyPilotesInscriptions(
+    data: { limit?: number; offset?: number },
+    metadata?: Metadata,
+  ): Observable<GetMyPilotesInscriptionsResponse>;
+}
+
+@Injectable()
+export class AppService {
+  private stablesService: StablesService;
+  private authenticationService: AuthenticationService;
+  private coursesService: CoursesService;
+  private pilotesService: PilotesService;
+
+  constructor(
+    @Inject('STABLES_PACKAGE') private stablesClient: ClientGrpc,
+    @Inject('AUTHENTICATION_PACKAGE') private authClient: ClientGrpc,
+    @Inject('PILOTES_PACKAGE') private pilotesClient: ClientGrpc,
+    @Inject('COURSES_PACKAGE') private coursesClient: ClientGrpc,
+  ) {}
+
+  onModuleInit() {
+    this.stablesService =
+      this.stablesClient.getService<StablesService>('StablesService');
+    this.authenticationService =
+      this.authClient.getService<AuthenticationService>(
+        'AuthenticationService',
+      );
+    this.coursesService =
+      this.coursesClient.getService<CoursesService>('CoursesService');
+    this.pilotesService =
+      this.pilotesClient.getService<PilotesService>('PilotesService');
+  }
+
+  getStables(query: string): Observable<GetStablesResponse> {
+    return this.stablesService.GetStables({ query });
+  }
+
+  getStableById(
+    id: string,
+    authorization?: string,
+  ): Observable<GetStableByIdResponse> {
+    if (authorization) {
+      // Si on a une autorisation, utiliser les métadonnées sécurisées
+      const metadata = new Metadata();
+      metadata.set('authorization', authorization);
+      return this.stablesService.GetStableById({ id }, metadata);
+    } else {
+      // Sinon, appel non sécurisé (pour les cas où on ne veut pas d'auth)
+      return this.stablesService.GetStableById({ id });
+    }
+  }
+
+  register(body: RegisterRequest): Observable<RegisterResponse> {
+    return this.authenticationService.Register(body);
+  }
+
+  login(body: LoginRequest): Observable<LoginResponse> {
+    return this.authenticationService.Login(body);
+  }
+
+  // === MÉTHODES ÉCURIES SÉCURISÉES ===
+
+  updateStable(
+    data: {
+      id: string;
+      name?: string;
+      location?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+      image_cover?: string;
+    },
+    authorization: string,
+  ): Observable<UpdateStableResponse> {
+    // Utilisation correcte des métadonnées gRPC avec NestJS
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+
+    return this.stablesService.UpdateStable(data, metadata);
+  }
+
+  deleteStable(
+    id: string,
+    authorization: string,
+  ): Observable<DeleteStableResponse> {
+    // Utilisation correcte des métadonnées gRPC avec NestJS
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+
+    return this.stablesService.DeleteStable({ id }, metadata);
+  }
+
+  // === MÉTHODES PILOTES SÉCURISÉES ===
+
+  getPilotes(
+    data: { query?: string; limit?: number; offset?: number },
+    authorization: string,
+  ): Observable<GetPilotesResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.pilotesService.GetPilotes(data, metadata);
+  }
+
+  getPiloteById(
+    id: string,
+    authorization: string,
+  ): Observable<GetPiloteByIdResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.pilotesService.GetPiloteById({ id }, metadata);
+  }
+
+  createPilote(
+    data: {
+      name: string;
+      age: number;
+      gender: string;
+      best_chrono_time: number;
+      pilote_number: number;
+    },
+    authorization: string,
+  ): Observable<CreatePiloteResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.pilotesService.CreatePilote(data, metadata);
+  }
+
+  updatePilote(
+    data: {
+      id: string;
+      name?: string;
+      age?: number;
+      gender?: string;
+      best_chrono_time?: number;
+      pilote_number?: number;
+      points?: number;
+    },
+    authorization: string,
+  ): Observable<UpdatePiloteResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.pilotesService.UpdatePilote(data, metadata);
+  }
+
+  deletePilote(
+    id: string,
+    authorization: string,
+  ): Observable<DeletePiloteResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.pilotesService.DeletePilote({ id }, metadata);
+  }
+
+  getCourses(authorization: string): Observable<GetCoursesResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.coursesService.GetCourses(metadata);
+  }
+
+  getCourseById(
+    authorization: string,
+    id: string,
+  ): Observable<GetCourseByIdResponse> {
+    const metadata = new Metadata();
+    metadata.set('authorization', authorization);
+    return this.coursesService.GetCourseById({ id }, metadata);
+  }
+}
