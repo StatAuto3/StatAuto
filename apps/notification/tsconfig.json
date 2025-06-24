@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
@@ -12,12 +13,30 @@
     "baseUrl": "./src",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+=======
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "types": ["node"]
+    },
+    "include": ["./**/*.ts"],
+>>>>>>> 2182cb82336d501472e2b9d23c69e1afcb50e7cd
     "paths": {
       "@statauto/*": [
         "../../../packages/proto/*"
       ]
     }
+<<<<<<< HEAD
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
+=======
+  }
+  
+>>>>>>> 2182cb82336d501472e2b9d23c69e1afcb50e7cd

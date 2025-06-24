@@ -1,0 +1,87 @@
+# 1. Base image pour tous les stages
+FROM node:20-alpine3.18 AS base
+
+# Install base dependencies including openssl for Prisma and build tools for native modules.
+RUN apk add --no-cache bash openssl1.1-compat && \
+    corepack enable && corepack prepare pnpm@8.6.12 --activate
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages ./packages
+COPY apps ./apps
+
+# Install dependencies at workspace level
+RUN pnpm install
+
+# 2. Development stage
+FROM base AS development
+
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+WORKDIR /app/apps/${SERVICE_NAME}
+
+# Generate Prisma client only if prisma directory exists
+RUN if [ -d "prisma" ]; then \
+    rm -rf generated/prisma && \
+    pnpm prisma generate --schema=./prisma/schema.prisma; \
+    fi
+
+CMD ["pnpm", "start:dev"]
+
+# 3. Builder stage
+FROM base AS builder
+
+ARG SERVICE_NAME
+
+WORKDIR /app/apps/${SERVICE_NAME}
+
+# Copy packages from base stage to ensure proto files are available
+COPY --from=base /app/packages ./packages
+
+# Generate Prisma client only if prisma directory exists
+RUN if [ -d "prisma" ]; then \
+    rm -rf generated/prisma && \
+    pnpm prisma generate --schema=./prisma/schema.prisma; \
+    fi
+
+RUN pnpm build
+
+# 4. Production stage
+FROM node:20-alpine AS production
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+ARG SERVICE_NAME
+
+WORKDIR /app
+
+# Copy dist and runtime deps
+COPY --from=builder /app/apps/${SERVICE_NAME}/dist ./dist
+COPY --from=builder /app/apps/${SERVICE_NAME}/package.json ./
+COPY --from=builder /app/packages ./packages
+
+# Copy optional directories only if they exist
+RUN if [ -d "/app/apps/${SERVICE_NAME}/generated" ]; then \
+    cp -r /app/apps/${SERVICE_NAME}/generated ./generated; \
+    fi
+RUN if [ -d "/app/apps/${SERVICE_NAME}/prisma" ]; then \
+    cp -r /app/apps/${SERVICE_NAME}/prisma ./prisma; \
+    fi
+
+# Crée le dossier cible
+RUN mkdir -p /app/packages/proto
+# Copie tous les .proto
+COPY --from=builder /app/packages/proto/*.proto /app/packages/proto/
+
+# Install production dependencies and generate Prisma client
+RUN pnpm install --prod && \
+    if [ -d "prisma" ]; then \
+    rm -rf generated/prisma && \
+    pnpm prisma generate --schema=./prisma/schema.prisma; \
+    fi
+
+EXPOSE 3000
+
+CMD ["node", "dist/main.js"]

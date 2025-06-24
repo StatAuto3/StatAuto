@@ -10,14 +10,15 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         url: '0.0.0.0:5003',
-        package: 'statauto',
-        protoPath: join(__dirname, '../proto/stat-auto-complete.proto'),
+        package: 'stables',
+        protoPath: join(__dirname, '../../../packages/proto/stables.proto'),
         loader: {
           keepCase: true,
           longs: String,
           enums: String,
           defaults: true,
           oneofs: true,
+          includeDirs: [join(__dirname, '../../../packages')],
         },
       },
     },

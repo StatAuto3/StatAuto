@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package stables;
+
+import "types/stable.type.proto";
+
+service StablesService {
+  rpc GetStables(Empty) returns (GetStablesResponse);
+  rpc GetStableById(GetStableByIdRequest) returns (GetStableByIdResponse);
+  rpc DeleteStable(DeleteStableRequest) returns (DeleteStableResponse);
+  rpc UpdateStable(UpdateStableRequest) returns (UpdateStableResponse);
+}
+
+
+message Empty {}
+
+message GetStableByIdRequest {
+  string id = 1;
+}
+
+message GetStableByIdResponse {
+  stable_type.StableType stable = 1;
+}
+
+message GetStablesRequest {
+  string query = 1;
+}
+
+message GetStablesResponse {
+  repeated stable_type.StableType stables = 1;
+}
+
+message DeleteStableRequest {
+  string id = 1;
+}
+
+message DeleteStableResponse {
+  bool success = 1;
+}
+
+message UpdateStableRequest {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string location = 4;
+  string image = 5;
+  string image_cover = 6;
+}
+
+message UpdateStableResponse {
+  stable_type.StableType stable = 1;
+}

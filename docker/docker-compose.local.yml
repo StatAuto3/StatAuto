@@ -26,9 +26,13 @@ services:
   pilotes:
     build:
       context: ..
-      dockerfile: apps/pilotes/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: pilotes
+      no_cache: true
     environment:
-      PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=pilotes"
     ports:
       - "3003:3000"  # HTTP
       - "5003:5000"  # gRPC
@@ -38,10 +42,13 @@ services:
   authentication:
     build:
       context: ..
-      dockerfile: apps/authentication/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: authentication
+      no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=auth"
-      PROTO_PATH: "/app/packages/proto/stat-auto-complete.proto"
     depends_on:
       - postgres
       - redis
@@ -53,10 +60,13 @@ services:
   stables:
     build:
       context: ..
-      dockerfile: apps/stables/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: stables
+      no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=stables"
-      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
     ports:
       - "3002:3000"  # HTTP
       - "5002:5000"  # gRPC
@@ -68,10 +78,13 @@ services:
   courses:
     build:
       context: ..
-      dockerfile: apps/courses/Dockerfile
+      dockerfile: docker/Dockerfile.nest.base
+      target: ${NODE_ENV:-development}
+      args:
+        SERVICE_NAME: courses
+      no_cache: true
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=courses"
-      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
     ports:
       - "3004:3000"  # HTTP
       - "5004:5000"  # gRPC
@@ -83,9 +96,7 @@ services:
   gateway:
     build:
       context: ..
-      dockerfile: apps/gateway/Dockerfile
-    environment:
-      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
+      dockerfile: docker/gateway/Dockerfile
     depends_on:
       - authentication
       - courses
@@ -99,7 +110,7 @@ services:
   app:
     build:
       context: ..
-      dockerfile: apps/app/Dockerfile
+      dockerfile: docker/app/Dockerfile
     depends_on:
       - gateway
     ports:
