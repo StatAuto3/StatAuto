@@ -172,7 +172,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Graig\\Desktop\\project_perso\\StatAuto\\apps\\pilotes\\generated\\prisma",
+      "value": "/home/alexandre/Documents/master_2/Webservices/StatAuto/apps/pilotes/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -181,7 +181,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       },
       {
@@ -194,11 +194,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Graig\\Desktop\\project_perso\\StatAuto\\apps\\pilotes\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/alexandre/Documents/master_2/Webservices/StatAuto/apps/pilotes/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",

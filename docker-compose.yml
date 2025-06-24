@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.nest.base
-      target: ${NODE_ENV:-development}
+      target: ${NODE_ENV:-production}
       args:
         SERVICE_NAME: authentication
       no_cache: true
@@ -15,7 +15,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres?schema=auth
       - PROTO_PATH=/app/proto/stat-auto-complete.proto
 
@@ -23,25 +23,22 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.nest.base
-      target: ${NODE_ENV:-development}
+      target: ${NODE_ENV:-production}
       args:
         SERVICE_NAME: gateway
       no_cache: true
-    volumes:
-      - .:/app
-      - /app/node_modules
     ports:
-      - "3001:3001"
+      - "3001:3000"
     depends_on:
       - authentication
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
 
   app:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
-      target: ${NODE_ENV:-development}
+      target: ${NODE_ENV:-production}
       no_cache: true
     volumes:
       - .:/app
@@ -51,13 +48,13 @@ services:
     depends_on:
       - gateway
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
 
   stables:
     build:
       context: .
       dockerfile: docker/Dockerfile.nest.base
-      target: ${NODE_ENV:-development}
+      target: ${NODE_ENV:-production}
       args:
         SERVICE_NAME: stables
       no_cache: true
@@ -65,17 +62,17 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - "3003:3003"
+      - "3003:3000"
     depends_on:
       - authentication
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
 
   courses:
     build:
       context: .
       dockerfile: docker/Dockerfile.nest.base
-      target: ${NODE_ENV:-development}
+      target: ${NODE_ENV:-production}
       args:
         SERVICE_NAME: courses
       no_cache: true
@@ -83,17 +80,17 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - "3004:3004"
+      - "3004:3000"
     depends_on:
       - authentication
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
 
   pilotes:
     build:
       context: .
       dockerfile: docker/Dockerfile.nest.base
-      target: ${NODE_ENV:-development}
+      target: ${NODE_ENV:-production}
       args:
         SERVICE_NAME: pilotes
       no_cache: true
@@ -101,11 +98,11 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - "3005:3005"
+      - "3005:3000"
     depends_on:
       - authentication
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
 
 networks:
   default:

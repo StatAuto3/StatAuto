@@ -100,9 +100,7 @@ services:
   gateway:
     build:
       context: ..
-      dockerfile: apps/gateway/Dockerfile
-    environment:
-      PROTO_PATH: "/app/proto/stat-auto-complete.proto"
+      dockerfile: docker/gateway/Dockerfile
     depends_on:
       - authentication
       - courses
@@ -116,7 +114,7 @@ services:
   app:
     build:
       context: ..
-      dockerfile: apps/app/Dockerfile
+      dockerfile: docker/app/Dockerfile
     depends_on:
       - gateway
     ports:
